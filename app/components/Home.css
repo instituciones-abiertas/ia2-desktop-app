@@ -5,16 +5,56 @@
   align-items: center;
   width: 100%;
   padding-top: 200px;
+  background-color: #e7e8ec;
 }
 
 .container h2 {
-  font-size: 5rem;
+  font-size: 4.2em;
+  
 }
 
+.buttonsRow {
+  margin-top: 60px;
+}
+
+.textRow {
+  margin-top: 10px;
+}
+
+.bottomRow {
+  position: absolute;
+  bottom: 10px;
+}
 .container a {
   font-size: 1.4rem;
 }
 
 .content {
   flex: 1
+}
+
+.secondButton {
+  background-color: #8a0f4a;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  font-size: 1em;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 200px;
+}
+
+.firstButton {
+  background-color: #fff;
+  color: #5d5c5c;
+  font-weight: 600;
+  border: none;
+  font-size: 1em;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 200px;
 }
