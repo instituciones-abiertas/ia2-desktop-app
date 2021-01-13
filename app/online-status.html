@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+  const { ipcRenderer } = require('electron')
+  const updateOnlineStatus = () => {
+    fetch('api').then(() => {
+      ipcRenderer.send('online-status-changed', 'online')
+    })
+    .catch((e) => {
+      ipcRenderer.send('online-status-changed', 'offline')
+    })
+  }
+
+  window.addEventListener('online',  updateOnlineStatus)
+  window.addEventListener('offline',  updateOnlineStatus)
+
+  updateOnlineStatus()
+</script>
+</body>
+</html>

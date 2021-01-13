@@ -1,0 +1,19 @@
+{
+  "name": "liberajus",
+  "productName": "liberajus",
+  "version": "1.0.0",
+  "description": "Herramienta Open Source para la anonimización de documentos.",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Cambá, Cooperativa tecnológica",
+    "email": "info@camba.coop",
+    "url": "https://camba.coop/"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}

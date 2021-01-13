@@ -1,0 +1,9 @@
+.title {
+  flex-grow: 1;
+  text-align: right;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.logo {
+  max-width: 20%;
+}

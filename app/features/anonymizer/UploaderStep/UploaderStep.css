@@ -1,0 +1,27 @@
+input[type='file'] {
+  display: none;
+}
+
+.fileInputLabel {
+  cursor: pointer;
+  font-size: small;
+  font-weight: bold;
+  color: #5d5c5c;
+  width: 100%;
+  border: solid;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: white;
+  border-radius: 8px;
+  border-width: 2px;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  place-items: center;
+}
+
+.fileInputLabel:hover {
+  color: #8a0f4a;
+}
