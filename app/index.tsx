@@ -7,6 +7,7 @@ import './app.global.css';
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
+  environment: process.env.SENTRY_RELEASE,
   debug: false,
 });
 

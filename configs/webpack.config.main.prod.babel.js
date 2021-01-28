@@ -63,6 +63,7 @@ export default merge(baseConfig, {
       START_MINIMIZED: false,
       E2E_BUILD: false,
       SENTRY_DSN: process.env.SENTRY_DSN,
+      SENTRY_RELEASE: process.env.SENTRY_RELEASE,
       ...dotenv.config().parsed,
     }),
   ],

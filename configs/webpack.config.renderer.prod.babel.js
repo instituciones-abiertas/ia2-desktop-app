@@ -212,6 +212,7 @@ export default merge(baseConfig, {
       DEBUG_PROD: false,
       E2E_BUILD: false,
       SENTRY_DSN: process.env.SENTRY_DSN,
+      SENTRY_RELEASE: process.env.SENTRY_RELEASE,
     }),
 
     new MiniCssExtractPlugin({
