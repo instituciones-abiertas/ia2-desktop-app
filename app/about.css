@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat'),
-    url(./assets/fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+  font-family: 'Saira';
+  src: local('Saira'),
+    url(./assets/fonts/Saira/static/Saira-Regular.ttf) format('truetype');
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #8a0f4a;
+  font-family: 'Saira', sans-serif;
+  background-color: #1f3366;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,25 +28,75 @@ html {
 .about-section {
   text-align: center;
   letter-spacing: -0.025em;
-  color: #e7e8ec;
+  color: #00d6a1;
   padding-left: 10vw;
   padding-right: 10vw;
 }
 
 .logo {
-  width: 20vw;
+  width: 22vw;
   align-self: center;
 }
 
 .container {
-  /* padding: 100px; */
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
+.carousel-cell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-right: 10px;
+  color: #00d6a1;
+  margin-top: 20px;
+}
+
+/* no circle */
+.flickity-button {
+  background: transparent;
+}
+
+/* big previous & next buttons */
+.flickity-prev-next-button {
+  width: 25px;
+  height: 25px;
+}
+
+/* icon color */
+.flickity-button-icon {
+  fill: #00d6a1;
+}
+
+/* hide disabled button */
+.flickity-button:disabled {
+  display: none;
+}
+
+/* position dots up a bit */
+.flickity-page-dots {
+  bottom: -25px;
+}
+
+/* dots are lines */
+.flickity-page-dots .dot {
+  height: 4px;
+  width: 40px;
+  margin: 0;
+  border-radius: 0;
+  background: #00d6a1;
+}
+
+*::-webkit-scrollbar {
+  width: 14px; /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: #1f3366; /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00d6a1; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
 }

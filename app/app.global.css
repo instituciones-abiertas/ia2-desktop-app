@@ -1,12 +1,29 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat'),
-    url(./assets/fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+  font-family: 'Saira-Regular';
+  src: local('Saira'),
+    url(./assets/fonts/Saira/static/Saira-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Saira-Bold';
+  src: local('Saira'),
+    url(./assets/fonts/Saira/static/Saira-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Saira-Expanded-Regular';
+  src: local('Saira'),
+    url(./assets/fonts/Saira/static/Saira_Expanded-Regular.ttf)
+      format('truetype');
+}
+
+:root {
+  --primary-color: #00d6a1;
+  --secondary-color: #1f3366;
+  --complementary-color: #ff7a68;
+  --light-color: #ffca00;
+  --background-color: #e7e8ec;
+  --disabled-color: #6c757d;
+  --contrast-color: white;
 }
 
 body {
@@ -17,48 +34,16 @@ body {
   overflow-y: hidden;
 }
 
-h2 {
-  margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -0.025em;
-  color: #333441;
-  font-family: 'Montserrat', sans-serif;
+*::-webkit-scrollbar {
+  width: 14px; /* width of the entire scrollbar */
 }
 
-h5 {
-  margin: 0;
-  letter-spacing: -0.025em;
-  color: #333441;
-  font-family: 'Montserrat', sans-serif;
+*::-webkit-scrollbar-track {
+  background: #e7e8ec; /* color of the tracking area */
 }
 
-p {
-  font-family: 'Montserrat', sans-serif;
-  color: #333441;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: white;
-  opacity: 0.75;
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-label {
-  font-family: 'Montserrat', sans-serif;
-}
-
-input {
-  font-family: 'Montserrat', sans-serif;
+*::-webkit-scrollbar-thumb {
+  background-color: #00d6a1; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  height: 50px;
 }

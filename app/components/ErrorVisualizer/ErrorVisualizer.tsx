@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
@@ -34,8 +34,11 @@ const useStyles = makeStyles((theme) =>
       backgroundColor: theme.palette.secondary.light,
     },
     button: {
-      width: theme.spacing(20),
       marginTop: theme.spacing(5),
+      width: theme.spacing(20),
+      borderRadius: theme.spacing(10),
+      fontFamily: 'Saira-Expanded-Regular',
+      fontWeight: 'bold',
     },
     iconButton: {
       padding: theme.spacing(1),
@@ -52,41 +55,43 @@ export default function ErrorVisualizer() {
     dispatch(updateReset());
   };
   return (
-    <Grid
-      container
-      direction="column"
-      className={classes.margin}
-      alignContent="center"
-      alignItems="center"
-    >
-      <Grid item>
-        <Alert
-          severity="error"
-          icon={<ErrorIcon fontSize="large" />}
-          className={classes.alert}
-          classes={{
-            standardError: classes.standardError,
-            icon: classes.icon,
-          }}
-        >
-          <AlertTitle className={classes.title}>Error</AlertTitle>
-          <Typography variant="subtitle1">{state.errorMessage}</Typography>
-        </Alert>
-      </Grid>
-      <Grid item>
-        <Link to={routes.ANONIMIZATION}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={handleReset}
-            size="small"
+    <Box m={16}>
+      <Grid
+        container
+        direction="column"
+        alignContent="center"
+        alignItems="center"
+        justify="center"
+      >
+        <Grid item>
+          <Alert
+            severity="error"
+            icon={<ErrorIcon fontSize="large" />}
+            className={classes.alert}
+            classes={{
+              standardError: classes.standardError,
+              icon: classes.icon,
+            }}
           >
-            REINICIAR
-            <RefreshIcon className={classes.iconButton} fontSize="small" />
-          </Button>
-        </Link>
+            <AlertTitle className={classes.title}>Error</AlertTitle>
+            <Typography variant="subtitle1">{state.errorMessage}</Typography>
+          </Alert>
+        </Grid>
+        <Grid item>
+          <Link style={{ textDecoration: 'none' }} to={routes.ANONIMIZATION}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={handleReset}
+              size="small"
+            >
+              REINICIAR
+              <RefreshIcon className={classes.iconButton} fontSize="small" />
+            </Button>
+          </Link>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 }

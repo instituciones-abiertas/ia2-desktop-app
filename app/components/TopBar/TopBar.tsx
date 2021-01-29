@@ -14,9 +14,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
 import { useDispatch } from 'react-redux';
 import routes from '../../constants/routes.json';
-import styles from './TopBar.css';
 import PopUpReset from '../ErrorVisualizer/PopUpReset';
-import logoImage from '../../assets/img/logo-horizontal.png';
+import logoImage from '../../assets/img/logo_blanco.png';
 import { updateReset } from '../../features/anonymizer/anonymizerSlice';
 import { useLogOut } from '../../features/login/authHook';
 
@@ -24,11 +23,26 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
       display: 'flex',
+      color: theme.palette.common.white,
     },
     icon: {
       marginRight: theme.spacing(0.5),
       width: 20,
       height: 20,
+    },
+    logo: {
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: '4%',
+      },
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '3%',
+      },
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '6%',
+      },
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '12%',
+      },
     },
   })
 );
@@ -79,8 +93,8 @@ export default function TopBar() {
     <>
       <AppBar color="secondary" position="static">
         <Toolbar color="secondary">
-          <Box flexGrow={1} m={2}>
-            <img className={styles.logo} alt="logo" src={logoImage} />
+          <Box flexGrow={1} m={1}>
+            <img className={classes.logo} alt="logo" src={logoImage} />
           </Box>
           <Box pr={2} alignItems="center">
             <Breadcrumbs aria-label="breadcrumb">

@@ -29,12 +29,28 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
     },
-    button: {
+    editionStepButton: {
+      marginTop: theme.spacing(11),
+      fontWeight: 'bold',
       width: theme.spacing(18),
+      borderRadius: theme.spacing(10),
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.secondary.main,
+      padding: theme.spacing(0.2),
+      '&:hover': {
+        color: theme.palette.secondary.main,
+      },
     },
-    instructions: {
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(5),
+    uploaderStepButton: {
+      width: theme.spacing(20),
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.common.white,
+      padding: theme.spacing(2),
+      borderRadius: theme.spacing(10),
+      '&:hover': {
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.primary.main,
+      },
     },
     stepper: {
       [theme.breakpoints.up('lg')]: {
@@ -43,28 +59,57 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingRight: theme.spacing(50),
       },
       [theme.breakpoints.down('lg')]: {
-        marginTop: theme.spacing(3),
-        paddingLeft: theme.spacing(25),
-        paddingRight: theme.spacing(25),
+        marginTop: theme.spacing(1),
+        paddingLeft: theme.spacing(35),
+        paddingRight: theme.spacing(35),
       },
       [theme.breakpoints.down('md')]: {
-        marginTop: theme.spacing(2),
-        paddingLeft: theme.spacing(12),
-        paddingRight: theme.spacing(12),
+        marginTop: theme.spacing(1),
+        paddingLeft: theme.spacing(18),
+        paddingRight: theme.spacing(18),
+      },
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: theme.spacing(8),
+        paddingRight: theme.spacing(8),
       },
     },
-    label: {
-      fontSize: theme.spacing(2),
+    stepLabel: {
+      fontSize: theme.spacing(2.5),
+      [theme.breakpoints.down('lg')]: {
+        fontSize: theme.spacing(2.3),
+      },
+      [theme.breakpoints.down('md')]: {
+        fontSize: theme.spacing(2),
+      },
+      [theme.breakpoints.down('sm')]: {
+        fontSize: theme.spacing(2),
+      },
+      color: theme.palette.secondary.main,
+    },
+    stepLabelCompleted: {
+      color: theme.palette.secondary.main,
+    },
+    stepLabelActive: {
+      color: theme.palette.primary.main,
     },
     stepIcon: {
       fontSize: theme.spacing(6),
     },
-    labelError: {
+    stepIconActive: {
+      fontSize: theme.spacing(6),
+      color: theme.palette.secondary.main,
+    },
+    stepIconCompleted: {
+      fontSize: theme.spacing(6),
+      color: theme.palette.primary.main,
+    },
+    stepLabelError: {
       color: '#f44336',
       opacity: '0.9',
     },
     iconButton: {
       padding: theme.spacing(1),
+      color: theme.palette.primary.main,
     },
     buttonWithIcon: {
       justifyContent: 'flex-start',
@@ -73,7 +118,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-  return ['Carga de documento', 'Edición', 'Anonimización'];
+  return ['Carga de documento', 'Revisión', 'Resultados'];
 }
 function getStepContent(stepIndex: number) {
   switch (stepIndex) {
@@ -161,6 +206,7 @@ export default function AnonymizationStepper() {
         style={{ backgroundColor: 'transparent' }}
         activeStep={state.activeStep}
         className={classes.stepper}
+        alternativeLabel
       >
         {steps.map((label, index) => {
           return (
@@ -169,12 +215,16 @@ export default function AnonymizationStepper() {
                 StepIconProps={{
                   classes: {
                     root: classes.stepIcon,
+                    active: classes.stepIconActive,
+                    completed: classes.stepIconCompleted,
                   },
                 }}
                 error={index === state.activeStep && isStepFailed()}
                 classes={{
-                  label: classes.label,
-                  error: classes.labelError,
+                  error: classes.stepLabelError,
+                  alternativeLabel: classes.stepLabel,
+                  completed: classes.stepLabelCompleted,
+                  active: classes.stepLabelActive,
                 }}
               >
                 {label}
@@ -198,9 +248,8 @@ export default function AnonymizationStepper() {
                 <Button
                   disabled={state.hasError || !state.document}
                   onClick={handleBack}
-                  color="primary"
                   variant="contained"
-                  className={classes.button}
+                  className={classes.editionStepButton}
                 >
                   <ArrowBackIosRoundedIcon
                     className={classes.iconButton}
@@ -215,13 +264,16 @@ export default function AnonymizationStepper() {
                 <Button
                   disabled={state.hasError || !state.document}
                   variant="contained"
-                  color="primary"
                   onClick={
                     state.activeStep === steps.length - 1
                       ? handleClickOpen
                       : handleNext
                   }
-                  className={classes.button}
+                  className={
+                    isUploaderStep()
+                      ? classes.uploaderStepButton
+                      : classes.editionStepButton
+                  }
                 >
                   {isUploaderStep() ? (
                     'PROCESAR'

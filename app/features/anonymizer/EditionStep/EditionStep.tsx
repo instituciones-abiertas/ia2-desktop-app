@@ -36,9 +36,30 @@ const useStyles = makeStyles((theme: Theme) =>
         marginRight: theme.spacing(8),
         marginLeft: theme.spacing(8),
       },
+      [theme.breakpoints.down('sm')]: {
+        marginRight: theme.spacing(0),
+        marginLeft: theme.spacing(0),
+      },
+    },
+    selectInput: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: theme.palette.common.white,
+      borderRadius: theme.spacing(10),
+      color: theme.palette.secondary.main,
+      padding: theme.spacing(1, 3),
+      fontSize: 'medium',
+      fontWeight: 'bold',
+      '&:hover, &:focus': {
+        color: theme.palette.primary.main,
+        borderRadius: theme.spacing(10),
+      },
+    },
+    selectIcon: {
+      color: theme.palette.primary.main,
+      paddingRight: theme.spacing(2),
     },
     selector: {
-      color: theme.palette.secondary.main,
       [theme.breakpoints.down('lg')]: {
         width: theme.spacing(30),
       },
@@ -48,6 +69,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tagDescription: {
       marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
     },
     tagTitle: {
       marginRight: theme.spacing(1),
@@ -58,20 +83,21 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     selectorIcon: {
-      color: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
+      paddingRight: theme.spacing(1),
     },
     root: {
       '& > *': {
         marginBottom: theme.spacing(5),
-        height: theme.spacing(60),
+        height: theme.spacing(50),
         [theme.breakpoints.down('lg')]: {
-          height: theme.spacing(30),
+          height: theme.spacing(23),
         },
         [theme.breakpoints.down('md')]: {
-          height: theme.spacing(30),
+          height: theme.spacing(25),
         },
         [theme.breakpoints.down('sm')]: {
-          height: theme.spacing(28),
+          height: theme.spacing(20),
         },
       },
     },
@@ -116,7 +142,8 @@ export default function EditionStep() {
           onChange={(event) => setSelectedTag(event.target.value as string)}
           className={classes.selector}
           color="secondary"
-          classes={{ icon: classes.selectorIcon }}
+          classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
+          disableUnderline
         >
           {state.tags.map((tag) => {
             return (
@@ -128,7 +155,11 @@ export default function EditionStep() {
                 >
                   {tag.name}
                 </Typography>
-                <Typography component="h1" variant="body2">
+                <Typography
+                  component="h1"
+                  variant="subtitle1"
+                  className={classes.tagDescription}
+                >
                   {tag.description}
                 </Typography>
               </MenuItem>
@@ -146,51 +177,54 @@ export default function EditionStep() {
   if (state.hasError) return <ErrorVisualizer />;
 
   return (
-    <Box m={3}>
+    <Box>
       <div className={classes.container}>
-        <div>
-          <Instructions
-            title="Selecciona una etiqueta"
-            subtitle="Luego elimina, agrega o corrige las etiquetas de las entidades que deben ser anonimizadas."
-          >
-            {renderSelect()}
-          </Instructions>
-          <div className={classes.root}>
-            <Paper elevation={5}>
-              <TextAnnotator
-                editableContent
-                doubleTaggingOff
-                style={{
-                  lineHeight: 1.5,
-                  whiteSpace: 'pre-line',
-                  overflowX: 'hidden',
-                  overflowY: 'scroll',
-                  backgroundColor: 'white',
-                  color: '#333441',
-                  border: 'solid',
-                  borderColor: '#8a0f4a',
-                  borderWidth: '0.2em',
-                  height: '100%',
-                  padding: '1.5em',
-                  fontFamily: 'Montserrat',
-                }}
-                content={state.text}
-                value={state.annotations}
-                onChange={(value) => handleEntitySelection(value)}
-                getSpan={(span) => ({
-                  ...span,
-                  text: 'protectedText',
-                  should_anonymized: true,
-                  human_marked_ocurrency: true,
-                  tag: selectedTag,
-                })}
-                markClass={styles.mark}
-                tagNameColor={styles.mark}
-                handleClick={(index) => handleClick(index)}
-                withCompletedWordSelection
-              />
-            </Paper>
-          </div>
+        {/* <Typography variant="subtitle1">
+          La tecnología es una facilitadora y no reemplaza la revisión humana.
+        </Typography> */}
+        <Instructions
+          title="Selecciona una etiqueta"
+          subtitle="Luego elimina, agrega o corrige las entidades identificadas."
+        >
+          {renderSelect()}
+        </Instructions>
+        <div className={classes.root}>
+          <Paper elevation={5}>
+            <TextAnnotator
+              editableContent
+              doubleTaggingOff
+              style={{
+                cursor: 'col-resize',
+                lineHeight: 2,
+                fontSize: 'large',
+                whiteSpace: 'pre-line',
+                overflowX: 'hidden',
+                overflowY: 'scroll',
+                backgroundColor: 'var(--contrast-color)',
+                color: 'var(--secondary-color)',
+                borderBottom: 'solid',
+                borderColor: 'var(--secondary-color)',
+                borderWidth: '0.1em',
+                height: '100%',
+                padding: '3em',
+                fontFamily: 'Saira-Regular',
+                zoom: 1,
+              }}
+              content={state.text}
+              value={state.annotations}
+              onChange={(value) => handleEntitySelection(value)}
+              getSpan={(span) => ({
+                ...span,
+                should_anonymized: true,
+                human_marked_ocurrency: true,
+                tag: selectedTag,
+              })}
+              markClass={styles.mark}
+              tagNameColor={styles.mark}
+              handleClick={(index) => handleClick(index)}
+              withCompletedWordSelection
+            />
+          </Paper>
         </div>
       </div>
     </Box>

@@ -1,8 +1,8 @@
 {
-  "name": "liberajus",
-  "productName": "liberajus",
+  "name": "inteligencia-artificial-x-instituciones-abiertas",
+  "productName": "IA²",
   "version": "1.0.0",
-  "description": "Herramienta Open Source para la anonimización de documentos.",
+  "description": "Herramienta para la anonimización de documentos.",
   "main": "./main.prod.js",
   "author": {
     "name": "Cambá, Cooperativa tecnológica",

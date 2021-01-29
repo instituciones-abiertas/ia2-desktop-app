@@ -9,38 +9,35 @@ type Props = {
 export default function App(props: Props) {
   const theme = createMuiTheme({
     palette: {
+      common: {
+        white: '#ffffff',
+      },
       primary: {
-        main: '#8a0f4a',
-        light: '#ffffff',
-        dark: '#333441',
+        main: '#00D6A1',
+        light: '#FF7A68',
+        dark: '#1F3366',
+        contrastText: '#ffffff',
       },
       secondary: {
-        main: '#ffffff',
-        light: '#e7e8ec',
-        dark: '#8a0f4a',
+        main: '#1F3366',
+        light: '#FFCA00',
+        dark: '#00D6A1',
+        contrastText: '#ffffff',
+      },
+      background: {
+        default: '#1F3366',
       },
     },
     typography: {
-      fontFamily: `Montserrat`,
+      fontFamily: `Saira-Regular`,
     },
     overrides: {
       MuiStepLabel: {
         label: {
           '&$active': {
-            color: '#8a0f4a',
+            color: '#1F3366',
             fontWeight: 800,
             fontSize: '1.2em',
-          },
-        },
-      },
-      MuiCssBaseline: {
-        '@global': {
-          '*': {
-            'scrollbar-width': 'thin',
-          },
-          '*::-webkit-scrollbar': {
-            width: '4px',
-            height: '4px',
           },
         },
       },

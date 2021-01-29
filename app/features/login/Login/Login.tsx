@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import { CssBaseline, Typography, Grow, Fade, Zoom } from '@material-ui/core';
 import { useAuthData, useLogin } from '../authHook';
 import useNotification from '../../notifications/Notification';
 import logoImage from '../../../assets/img/logo.png';
 import routes from '../../../constants/routes.json';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
+  content: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -20,27 +20,55 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     height: '100vh',
+    backgroundColor: theme.palette.secondary.main,
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
+  inputField: {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing(10),
+    color: theme.palette.secondary.main,
+    padding: theme.spacing(0.5, 5),
+    marginBottom: theme.spacing(3),
+    fontSize: 'medium',
+    fontFamily: 'Saira-Regular',
+    '&:hover, &:focus': {
+      color: theme.palette.primary.main,
+      borderRadius: theme.spacing(10),
+    },
+  },
+  inputLabel: {
+    marginLeft: theme.spacing(3),
+    color: theme.palette.primary.main,
+    fontWeight: 'bold',
+    fontFamily: 'Saira-Regular',
   },
   form: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
     [theme.breakpoints.down('lg')]: {
       width: theme.spacing(55),
     },
     marginTop: theme.spacing(1),
   },
-  subtitle: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(4),
-  },
-  submit: {
+  submitButton: {
     margin: theme.spacing(3, 0, 2),
+    width: '60%',
+    fontWeight: 'bold',
+    fontSize: 'medium',
+    alignSelf: 'center',
+    padding: theme.spacing(0.8),
+    borderRadius: theme.spacing(10),
+    '&:hover, &:focus': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.common.white,
+    },
+    '&:disabled': {
+      color: theme.palette.primary.main,
+    },
   },
   logo: {
-    width: theme.spacing(50),
+    width: theme.spacing(28),
+    marginBottom: theme.spacing(5),
   },
 }));
 
@@ -73,49 +101,64 @@ export default function LogIn() {
         history.push(routes.ANONIMIZATION);
         return data;
       })
-      .catch((error) => {
+      .catch(() => {
         notifyError(authState.errorMessage);
       });
   }
 
   return (
     <Container className={classes.container} component="main" maxWidth="sm">
-      <div className={classes.paper}>
-        <img className={classes.logo} alt="logo" src={logoImage} />
-        <Typography className={classes.subtitle} component="h6" variant="h6">
-          Anonimizamos para una justicia abierta
-        </Typography>
+      <CssBaseline />
+      <div className={classes.content}>
+        <Grow in>
+          <img className={classes.logo} alt="logo" src={logoImage} />
+        </Grow>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <Typography
+            component="h6"
+            variant="h6"
+            className={classes.inputLabel}
+          >
+            EMAIL
+          </Typography>
           <TextField
-            variant="outlined"
+            classes={{ root: classes.inputField }}
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email"
             name="email"
             autoComplete="email"
             autoFocus
             onChange={handleFormStateChange}
+            InputProps={{ disableUnderline: true }}
           />
+          <Typography
+            component="h6"
+            variant="h6"
+            className={classes.inputLabel}
+          >
+            CONTRASEÑA
+          </Typography>
           <TextField
-            variant="outlined"
+            classes={{ root: classes.inputField }}
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Contraseña"
             type="password"
             id="password"
             autoComplete="current-password"
             onChange={handleFormStateChange}
+            InputProps={{ disableUnderline: true }}
           />
           <Button
+            disabled={!formState.email || !formState.password}
             fullWidth
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={classes.submitButton}
           >
             Iniciar sesión
           </Button>

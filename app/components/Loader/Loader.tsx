@@ -18,7 +18,7 @@ export default function Loader() {
 
   return (
     <Container maxWidth="md">
-      <Box m={20}>
+      <Box m={25}>
         <LinearProgress color="primary" />
       </Box>
     </Container>

@@ -1,17 +1,9 @@
 import React, { useEffect } from 'react';
-import {
-  Select,
-  Grid,
-  FormControl,
-  MenuItem,
-  InputBase,
-  withStyles,
-} from '@material-ui/core';
+import { Select, Grid, FormControl, MenuItem, Box } from '@material-ui/core';
 import AttachFileRoundedIcon from '@material-ui/icons/AttachFileRounded';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import styles from './UploaderStep.css';
 import {
   updateDoc,
   selectAnonymizer,
@@ -21,80 +13,74 @@ import {
 } from '../anonymizerSlice';
 import { getEntities } from '../../../api/anonymizationApi';
 
-const SelectInput = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      'label + &': {
-        marginTop: theme.spacing(3),
-      },
-    },
-    input: {
-      borderRadius: 4,
-      position: 'relative',
-      '&:focus': {
-        borderRadius: 4,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  })
-)(InputBase);
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
-      display: 'flex',
       flexDirection: 'row',
-      margin: theme.spacing(1),
       width: theme.spacing(50),
       '@media (min-width:1920px)': {
         width: theme.spacing(70),
       },
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    text: {
-      marginLeft: theme.spacing(3),
-      marginBottom: theme.spacing(5),
-    },
     label: {
-      marginLeft: theme.spacing(1),
+      marginLeft: theme.spacing(2),
       marginBottom: theme.spacing(3),
-      color: '#5d5c5c',
+      marginTop: theme.spacing(3),
+      color: theme.palette.secondary.main,
       fontWeight: 'bold',
     },
-    selector: {
+    selectContainer: {
       marginTop: theme.spacing(12),
       [theme.breakpoints.down('lg')]: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(1),
+      },
+      [theme.breakpoints.down('md')]: {
+        marginTop: theme.spacing(2),
       },
     },
-    uploader: {
-      marginTop: theme.spacing(5),
-    },
-    root: {
-      width: theme.spacing(30),
-      height: theme.spacing(40),
-    },
     selectInput: {
-      backgroundColor: 'white',
-      border: 'solid',
-      borderWidth: '2px',
-      borderRadius: '8px',
-      color: '#5d5c5c',
-      borderColor: '#5d5c5c',
-      padding: theme.spacing(2),
-      fontSize: 'small',
+      backgroundColor: theme.palette.common.white,
+      borderRadius: theme.spacing(10),
+      color: theme.palette.secondary.main,
+      padding: theme.spacing(1.6, 3),
+      fontSize: 'medium',
       fontWeight: 'bold',
       '&:hover, &:focus': {
         color: theme.palette.primary.main,
-        border: 'solid',
-        borderColor: theme.palette.primary.main,
-        borderWidth: '2px',
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(10),
       },
     },
-    uploadButtonText: {
+    selectIcon: {
+      color: theme.palette.primary.main,
+      paddingRight: theme.spacing(2),
+    },
+    selectIconOpen: {
+      color: theme.palette.secondary.main,
+      marginRight: theme.spacing(2),
+    },
+    uploaderInput: {
+      cursor: 'pointer',
+      fontSize: 'small',
+      fontWeight: 'bold',
+      fontFamily: 'Saira-Expanded-Regular',
+      color: theme.palette.secondary.main,
+      maxWidth: '45%',
+      height: '1.8em',
+      backgroundColor: theme.palette.primary.main,
+      borderRadius: theme.spacing(10),
+      padding: theme.spacing(1.3, 2),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      placeItems: 'center',
+      '&:hover': {
+        color: theme.palette.common.white,
+      },
+    },
+    uploaderText: {
+      marginLeft: theme.spacing(3),
+    },
+    uploaderButtonText: {
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
       overflow: 'hidden',
@@ -129,54 +115,65 @@ export default function UploaderStep() {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="space-around"
-      alignContent="center"
-      alignItems="center"
-    >
-      <Grid item xs={12} xl={8} className={classes.selector}>
-        <Typography component="h6" variant="body2" className={classes.label}>
-          MATERIA
-        </Typography>
-        <FormControl color="primary" className={classes.formControl}>
-          <Select
-            variant="outlined"
-            fullWidth
-            required
-            color="primary"
-            value={state.subject}
-            onChange={(e) => handleSubjectChange(e)}
-            classes={{
-              select: classes.selectInput,
-            }}
-            input={<SelectInput />}
-          >
-            <MenuItem value="PENAL">PENAL</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} xl={8} className={classes.uploader}>
-        <FormControl className={classes.formControl}>
-          <label className={styles.fileInputLabel} htmlFor="file-upload">
-            <div className={classes.uploadButtonText}>
-              {state.documentName ? state.documentName : `SUBIR DOCUMENTO*`}
-            </div>
-            <input
-              id="file-upload"
+    <Box mb="5em">
+      <Grid
+        container
+        direction="column"
+        justify="space-around"
+        alignContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} xl={12} className={classes.selectContainer}>
+          <Typography component="h6" variant="h6" className={classes.label}>
+            MATERIA
+          </Typography>
+          <FormControl color="primary" className={classes.formControl}>
+            <Select
+              fullWidth
               required
-              type="file"
-              onChange={(e) => handleFileInput(e)}
-              accept=".doc, .docx, .odt"
-            />
-            <AttachFileRoundedIcon />
-          </label>
-        </FormControl>
-        <Typography component="h6" variant="body2" className={classes.text}>
-          *El documento debe tener extensión .odt, .doc, .docx
-        </Typography>
+              color="primary"
+              value={state.subject}
+              onChange={(e) => handleSubjectChange(e)}
+              classes={{
+                select: classes.selectInput,
+                icon: classes.selectIcon,
+                iconOpen: classes.selectIconOpen,
+              }}
+              disableUnderline
+            >
+              <MenuItem value="PENAL">Penal</MenuItem>
+            </Select>
+          </FormControl>
+          <Typography variant="h6" className={classes.label}>
+            DOCUMENTO
+          </Typography>
+          <Grid container direction="row" item xs={12} xl={12} justify="center">
+            <FormControl className={classes.formControl}>
+              <label className={classes.uploaderInput} htmlFor="file-upload">
+                <div className={classes.uploaderButtonText}>
+                  {state.documentName ? state.documentName : `SUBIR DOCUMENTO*`}
+                </div>
+                <input
+                  id="file-upload"
+                  required
+                  type="file"
+                  onChange={(e) => handleFileInput(e)}
+                  accept=".doc, .docx, .odt"
+                  hidden
+                />
+                <AttachFileRoundedIcon />
+              </label>
+              <Typography
+                component="h6"
+                variant="body2"
+                className={classes.uploaderText}
+              >
+                *El documento debe tener extensión .odt, .doc, .docx
+              </Typography>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 }

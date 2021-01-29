@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   result: {
     fontWeight: 'bold',
   },
+  text: {
+    color: 'var(--secondary-color)',
+  },
 });
 
 export default function TableResult() {
@@ -20,11 +23,11 @@ export default function TableResult() {
 
   return (
     <Table size="small" aria-label="a dense table">
-      <TableHead>
+      <TableHead className={classes.text}>
         <TableRow>
-          <TableCell style={{ fontWeight: 'bold' }}>RESULTADOS</TableCell>
+          <TableCell style={{ fontWeight: 'bold' }}>ENTIDAD</TableCell>
           <TableCell align="right">MODELO </TableCell>
-          <TableCell align="right">HUMANO </TableCell>
+          <TableCell align="right">MANUAL </TableCell>
           <TableCell align="right">EFECTIVIDAD</TableCell>
         </TableRow>
       </TableHead>
@@ -39,7 +42,7 @@ export default function TableResult() {
               {row.human_detect}
             </TableCell>
             <TableCell align="right" className={classes.result}>
-              {row.percent} %
+              {`${row.percent}%`}
             </TableCell>
           </TableRow>
         ))}
