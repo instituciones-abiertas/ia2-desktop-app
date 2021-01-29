@@ -36,56 +36,13 @@ html {
 .logo {
   width: 22vw;
   align-self: center;
+  margin-top: 25px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.carousel-cell {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-right: 10px;
-  color: #00d6a1;
-  margin-top: 20px;
-}
-
-/* no circle */
-.flickity-button {
-  background: transparent;
-}
-
-/* big previous & next buttons */
-.flickity-prev-next-button {
-  width: 25px;
-  height: 25px;
-}
-
-/* icon color */
-.flickity-button-icon {
-  fill: #00d6a1;
-}
-
-/* hide disabled button */
-.flickity-button:disabled {
-  display: none;
-}
-
-/* position dots up a bit */
-.flickity-page-dots {
-  bottom: -25px;
-}
-
-/* dots are lines */
-.flickity-page-dots .dot {
-  height: 4px;
-  width: 40px;
-  margin: 0;
-  border-radius: 0;
-  background: #00d6a1;
 }
 
 *::-webkit-scrollbar {
