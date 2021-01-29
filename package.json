@@ -1,8 +1,8 @@
 {
-  "name": "liberajus",
-  "productName": "liberajus",
+  "name": "inteligencia-artificial-x-instituciones-abiertas",
+  "productName": "Inteligencia Artificial x Instituciones Abiertas",
   "version": "1.0.0",
-  "description": "Herramienta Open Source para la anonimización de documentos.",
+  "description": "Herramienta para la anonimización de documentos.",
   "author": {
     "name": "Cambá, Cooperativa tecnológica",
     "email": "info@camba.coop",
@@ -58,8 +58,8 @@
     ]
   },
   "build": {
-    "productName": "Liberajus",
-    "appId": "coop.camba.liberajus",
+    "productName": "IA² ",
+    "appId": "coop.camba.IA²",
     "files": [
       "dist/",
       "node_modules/",
@@ -250,6 +250,7 @@
     "electron-log": "^4.2.2",
     "electron-updater": "^4.3.1",
     "file-saver": "^2.0.2",
+    "flickity": "^2.2.2",
     "history": "^4.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",

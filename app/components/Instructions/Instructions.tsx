@@ -24,17 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontWeight: 'bold',
     },
-    instructionsContainer: {
-      '& > *': {
-        // marginLeft: theme.spacing(6),
-      },
-    },
     instructionsIcon: {
       padding: theme.spacing(3),
     },
     instructions: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.common.white,
       display: 'flex',
       flexDirection: 'row',
       fontFamily: theme.typography.fontFamily,
@@ -58,7 +53,7 @@ export default function Instructions(props: InstructionsProps) {
   const classes = useStyles();
   const { title, subtitle, children } = props;
   return (
-    <div className={classes.instructionsContainer}>
+    <>
       <Paper square className={classes.instructions} elevation={3}>
         <InfoIcon className={classes.instructionsIcon} fontSize="large" />
         <div className={classes.textContainer}>
@@ -75,7 +70,7 @@ export default function Instructions(props: InstructionsProps) {
         </div>
         {children || null}
       </Paper>
-    </div>
+    </>
   );
 }
 

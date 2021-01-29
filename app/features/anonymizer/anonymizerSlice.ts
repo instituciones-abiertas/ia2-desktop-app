@@ -19,10 +19,19 @@ const anonymizerSlice = createSlice({
     isLoading: false,
     hasError: false,
     errorMessage:
-      'En este momento no es posible continuar anonimizando documentos. Vuelva a intentarlo.',
+      'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.',
     activeStep: 0,
     resultData: {
-      entitiesResult: [{ name: '', value: 0 }],
+      entitiesResult: [
+        {
+          name: '',
+          value: 0,
+          model_detect: false,
+          human_detect: false,
+          percent: '100%',
+          ent: 'PER',
+        },
+      ],
       risk: 'Medio',
       total: { name: '', value: 0 },
       efectivity_average: 0,
@@ -109,7 +118,7 @@ const anonymizerSlice = createSlice({
       state.isLoading = false;
       state.hasError = false;
       state.errorMessage =
-        'En este momento no es posible continuar anonimizando documentos. Vuelva a intentarlo.';
+        'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
     },
   },

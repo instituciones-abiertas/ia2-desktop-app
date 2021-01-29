@@ -5,17 +5,19 @@ import TableResult from './table';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
+    container: {
+      backgroundColor: 'transparent',
       padding: theme.spacing(3),
+      margin: theme.spacing(3),
       overflowY: 'scroll',
       '*': {
         'scrollbar-width': 'thin',
       },
       [theme.breakpoints.up('lg')]: {
-        height: theme.spacing(50),
+        height: theme.spacing(40),
       },
       [theme.breakpoints.down('lg')]: {
-        height: theme.spacing(30),
+        height: theme.spacing(20),
       },
       [theme.breakpoints.down('md')]: {
         height: theme.spacing(20),
@@ -28,7 +30,7 @@ export default function Body() {
   const classes = useStyles();
 
   return (
-    <Paper elevation={5} className={classes.paper}>
+    <Paper elevation={0} className={classes.container}>
       <TableResult />
     </Paper>
   );

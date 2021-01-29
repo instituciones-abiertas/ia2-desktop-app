@@ -43,8 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
     iconButton: {
       padding: theme.spacing(1),
     },
-    button: {
+    actionButton: {
       width: theme.spacing(20),
+      borderRadius: theme.spacing(10),
+      fontFamily: 'Saira-Expanded-Regular',
+      fontWeight: 'bold',
     },
   })
 );
@@ -117,7 +120,7 @@ export default function ResultStep() {
               variant="contained"
               size="small"
               color="primary"
-              className={classes.button}
+              className={classes.actionButton}
             >
               Descargar
               <DownloadIcon className={classes.iconButton} fontSize="small" />
@@ -129,7 +132,7 @@ export default function ResultStep() {
               variant="contained"
               color="primary"
               size="small"
-              className={classes.button}
+              className={classes.actionButton}
             >
               Dropbox
               <ShareIcon className={classes.iconButton} fontSize="small" />
@@ -141,7 +144,7 @@ export default function ResultStep() {
               variant="contained"
               color="primary"
               size="small"
-              className={classes.button}
+              className={classes.actionButton}
             >
               Drive
               <ShareIcon className={classes.iconButton} fontSize="small" />
@@ -153,7 +156,7 @@ export default function ResultStep() {
               variant="contained"
               color="primary"
               size="small"
-              className={classes.button}
+              className={classes.actionButton}
             >
               Reiniciar
               <RefreshIcon className={classes.iconButton} fontSize="small" />
@@ -171,11 +174,7 @@ export default function ResultStep() {
   const renderResultStep = () => {
     return (
       <div className={classes.results}>
-        <Results
-          title="Efectivadad Total"
-          subtitle="Determinado por la cantidades identificadas."
-          level={state.resultData.total.percent_total}
-        />
+        <Results level={state.resultData.total.percent_total} />
       </div>
     );
   };

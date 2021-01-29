@@ -8,7 +8,7 @@ import {
   IAnnotation,
 } from '../utils/declarations';
 
-const { API_URL } = process.env;
+const API_URL = process.env.BASE_URL ? process.env.API_URL : API_URL_DEFAULT;
 
 export async function getAnonymizedDoc(
   newAnnotations: IAnnotation[],

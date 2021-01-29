@@ -51,7 +51,7 @@ export default class MenuBuilder {
         height: 600,
         resizable: false,
         width: 750,
-        title: 'Acerca de LiberaJus',
+        title: 'Acerca de IA²',
         minimizable: false,
         fullscreenable: false,
         skipTaskbar: true,
@@ -100,10 +100,10 @@ export default class MenuBuilder {
             : [],
       },
       {
-        label: 'Acerca de LiberaJus',
+        label: 'Acerca de IA²',
         submenu: [
           {
-            label: '¿Qué es LiberaJus?',
+            label: '¿Qué es IA²?',
             click: () => {
               openAboutWindow();
             },
