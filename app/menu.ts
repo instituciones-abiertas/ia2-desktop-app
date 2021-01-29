@@ -11,6 +11,7 @@ export default class MenuBuilder {
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
+    mainWindow.setMenuBarVisibility(false);
   }
 
   buildMenu(): Menu {
