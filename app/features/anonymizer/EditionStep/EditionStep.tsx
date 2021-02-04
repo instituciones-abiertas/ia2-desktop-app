@@ -194,7 +194,6 @@ export default function EditionStep() {
               editableContent
               doubleTaggingOff
               style={{
-                cursor: 'col-resize',
                 lineHeight: 2,
                 fontSize: 'large',
                 whiteSpace: 'pre-line',

@@ -7,6 +7,7 @@ import {
   IEntity,
   IAnnotation,
 } from '../utils/declarations';
+import { API_URL_DEFAULT } from '../constants/api';
 
 const API_URL = process.env.BASE_URL ? process.env.API_URL : API_URL_DEFAULT;
 

@@ -4,7 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
-import { CssBaseline, Typography, Grow, Fade, Zoom } from '@material-ui/core';
+import {
+  CssBaseline,
+  Typography,
+  Grow,
+  IconButton,
+  InputAdornment,
+} from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useAuthData, useLogin } from '../authHook';
 import useNotification from '../../notifications/Notification';
 import logoImage from '../../../assets/img/logo.png';
@@ -82,17 +89,20 @@ export default function LogIn() {
   const [formState, setFormState] = useState({
     email: '',
     password: '',
-    rememberMe: false,
+    showPassword: false,
   });
 
   function handleFormStateChange(event) {
-    const { name, type, value, checked } = event.target;
-
+    const { name, value } = event.target;
     setFormState({
       ...formState,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     });
   }
+
+  const handleClickShowPassword = () => {
+    setFormState({ ...formState, showPassword: !formState.showPassword });
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -150,7 +160,24 @@ export default function LogIn() {
             id="password"
             autoComplete="current-password"
             onChange={handleFormStateChange}
-            InputProps={{ disableUnderline: true }}
+            InputProps={{
+              disableUnderline: true,
+              type: formState.showPassword ? 'text' : 'password',
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {formState.showPassword ? (
+                      <Visibility />
+                    ) : (
+                      <VisibilityOff />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             disabled={!formState.email || !formState.password}
