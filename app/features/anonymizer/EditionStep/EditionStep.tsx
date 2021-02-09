@@ -179,9 +179,6 @@ export default function EditionStep() {
   return (
     <Box>
       <div className={classes.container}>
-        {/* <Typography variant="subtitle1">
-          La tecnología es una facilitadora y no reemplaza la revisión humana.
-        </Typography> */}
         <Instructions
           title="Selecciona una etiqueta"
           subtitle="Luego elimina, agrega o corrige las entidades identificadas."

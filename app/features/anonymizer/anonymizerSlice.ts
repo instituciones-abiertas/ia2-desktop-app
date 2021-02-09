@@ -18,6 +18,7 @@ const anonymizerSlice = createSlice({
     subject: 'PENAL',
     isLoading: false,
     hasError: false,
+    errorCode: null,
     errorMessage:
       'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.',
     activeStep: 0,
@@ -93,6 +94,7 @@ const anonymizerSlice = createSlice({
       state.hasError = action.payload.status;
       state.isLoading = false;
       state.errorMessage = action.payload.message || state.errorMessage;
+      state.errorCode = action.payload.errorCode;
     },
     updateLoader: (state) => {
       state.isLoading = true;
@@ -117,6 +119,7 @@ const anonymizerSlice = createSlice({
       state.anonymizedText = '';
       state.isLoading = false;
       state.hasError = false;
+      state.errorCode = null;
       state.errorMessage =
         'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
@@ -155,7 +158,11 @@ export const getEntitiesFromDoc = (
     dispatch(updateAnalysisSuccess(response));
   } catch (err) {
     dispatch(
-      updateErrorStatus({ status: true, message: err.response.data.detail })
+      updateErrorStatus({
+        status: true,
+        message: err.response.data.detail,
+        errorCode: err.response.status,
+      })
     );
   }
 };
@@ -170,7 +177,11 @@ export const getAnonymization = (
     dispatch(updateAnonymizedDocSuccess(response));
   } catch (err) {
     dispatch(
-      updateErrorStatus({ status: true, message: err.response.data.detail })
+      updateErrorStatus({
+        status: true,
+        message: err.response.data.detail,
+        errorCode: err.response.status,
+      })
     );
   }
 };
