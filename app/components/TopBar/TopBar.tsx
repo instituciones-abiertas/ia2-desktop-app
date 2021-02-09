@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       [theme.breakpoints.up('lg')]: {
-        maxWidth: '4%',
+        maxWidth: '5%',
       },
       [theme.breakpoints.down('lg')]: {
-        maxWidth: '3%',
+        maxWidth: '5%',
       },
       [theme.breakpoints.down('md')]: {
         maxWidth: '6%',
