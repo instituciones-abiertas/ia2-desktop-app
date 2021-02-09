@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -12,6 +12,7 @@ import {
   updateReset,
 } from '../../features/anonymizer/anonymizerSlice';
 import routes from '../../constants/routes.json';
+import { AUTH_UNAUTHORIZED_ERROR } from '../../constants/api';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -54,6 +55,11 @@ export default function ErrorVisualizer() {
   const handleReset = () => {
     dispatch(updateReset());
   };
+
+  if (state.errorCode === AUTH_UNAUTHORIZED_ERROR) {
+    return <Redirect to={routes.LOGIN} />;
+  }
+
   return (
     <Box m={16}>
       <Grid
