@@ -1,0 +1,29 @@
+stages:
+  - deploy
+
+deploy_packages:
+  stage: deploy
+  image: yobasystems/alpine-docker
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H "${DEPLOYMENT_STAGING_HOST}" >> ~/.ssh/known_hosts
+  script:
+    - git checkout $CI_COMMIT_REF_NAME
+    - git reset --hard origin/$CI_COMMIT_REF_NAME
+    - sed -e "s+https://your-backend-url+$STAGING_BASE_URL+g;s+/your-api-namespace+$STAGING_API_URL+g;s+https://public@sentry.example.com/1+$STAGING_SENRTY_DSN+g;s+release+$STAGING_SENTRY_RELEASE+g" .env.example > .env
+    - >
+      docker run --rm -t
+      --env ELECTRON_CACHE="/root/.cache/electron"
+      --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder"
+      -v ${PWD}:/project
+      -v ${PWD##*/}-node-modules:/project/node_modules
+      -v ~/.cache/electron:/root/.cache/electron
+      -v ~/.cache/electron-builder:/root/.cache/electron-builder
+      electronuserland/builder:wine
+      /bin/bash -c "yarn install --network-concurrency 1 && yarn run package-win && yarn run package-linux"
+    - chmod 666 ./release/*
+    - rsync -a --delete ./release/IA* $DEPLOY_PATH
+  only:
+    - develop
