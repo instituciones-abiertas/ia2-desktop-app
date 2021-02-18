@@ -33,7 +33,7 @@
 
 Necesitarás **Node**, preferentemente versión **12.18.2** o **posterior**.
 
-Después de clonar el repositorio forkeado, sigue las instrucciones de desarrollo en [README.md](README.md#Preparar-ambiente-de-desarrollo)
+Después de clonar el repositorio forkeado, sigue las instrucciones de desarrollo en [README.md](README.md#Ambiente-de-desarrollo)
 
 ### Escritura de commits
 
