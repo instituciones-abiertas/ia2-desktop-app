@@ -12,7 +12,12 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
-import { selectAnonymizer, updateAnnotations } from '../anonymizerSlice';
+import {
+  selectAnonymizer,
+  updateAnnotations,
+  updateNewAnnotations,
+  updateDeleteAnnotations,
+} from '../anonymizerSlice';
 import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
@@ -110,12 +115,13 @@ export default function EditionStep() {
   const [selectedTag, setSelectedTag] = useState<string>('PER');
   const classes = useStyles();
 
-  const handleEntitySelection = (value) => {
-    dispatch(updateAnnotations(value));
+  const handleEntitySelection = (value, span) => {
+    dispatch(updateNewAnnotations([span]));
   };
 
   const handleDelete = (index: number) => {
     if (index >= 0) {
+      dispatch(updateDeleteAnnotations([state.annotations[index]]));
       dispatch(
         updateAnnotations([
           ...state.annotations.slice(0, index),
@@ -207,8 +213,8 @@ export default function EditionStep() {
                 zoom: 1,
               }}
               content={state.text}
-              value={state.annotations}
-              onChange={(value) => handleEntitySelection(value)}
+              value={state.annotations.concat(state.newAnnotations)}
+              onChange={(value, span) => handleEntitySelection(value, span)}
               getSpan={(span) => ({
                 ...span,
                 should_anonymized: true,

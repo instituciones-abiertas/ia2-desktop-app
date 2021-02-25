@@ -11,10 +11,14 @@ import { API_URL } from '../constants/api';
 
 export async function getAnonymizedDoc(
   newAnnotations: IAnnotation[],
-  docId: number
+  docId: number,
+  deleteAnnotations: IAnnotation[]
 ) {
   const ENDPOINT_URL = `${API_URL}/act/${docId}/addAnnotations/`;
-  const params = { ents: newAnnotations };
+  const params = {
+    newOcurrencies: newAnnotations,
+    deleteOcurrencies: deleteAnnotations,
+  };
   try {
     const response = await requester.post<IDocAnalysis>(ENDPOINT_URL, params);
     return response.data;

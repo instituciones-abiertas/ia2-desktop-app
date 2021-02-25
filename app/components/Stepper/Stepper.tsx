@@ -144,7 +144,11 @@ export default function AnonymizationStepper() {
       case 0:
         return getEntitiesFromDoc(state.document, state.documentName);
       case 1:
-        return getAnonymization(state.annotations, state.id);
+        return getAnonymization(
+          state.newAnnotations,
+          state.id,
+          state.deleteAnnotations
+        );
       default:
         return () => {};
     }

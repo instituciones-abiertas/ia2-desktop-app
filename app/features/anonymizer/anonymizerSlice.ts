@@ -14,6 +14,7 @@ const anonymizerSlice = createSlice({
     documentName: '',
     annotations: [],
     newAnnotations: [],
+    deleteAnnotations: [],
     anonymizedText: '',
     subject: 'PENAL',
     isLoading: false,
@@ -88,7 +89,10 @@ const anonymizerSlice = createSlice({
       state.annotations = action.payload;
     },
     updateNewAnnotations: (state, action) => {
-      state.newAnnotations = action.payload;
+      state.newAnnotations = state.newAnnotations.concat(action.payload);
+    },
+    updateDeleteAnnotations: (state, action) => {
+      state.deleteAnnotations = state.deleteAnnotations.concat(action.payload);
     },
     updateErrorStatus: (state, action) => {
       state.hasError = action.payload.status;
@@ -116,6 +120,7 @@ const anonymizerSlice = createSlice({
       state.documentName = '';
       state.annotations = [];
       state.newAnnotations = [];
+      state.deleteAnnotations = [];
       state.anonymizedText = '';
       state.isLoading = false;
       state.hasError = false;
@@ -141,6 +146,7 @@ export const {
   updateDocName,
   updateTags,
   updateNewAnnotations,
+  updateDeleteAnnotations,
   updateReset,
   updateStep,
   decrementStep,
@@ -169,11 +175,16 @@ export const getEntitiesFromDoc = (
 
 export const getAnonymization = (
   newAnnotations: IAnnotation[],
-  docID: number
+  docID: number,
+  deleteAnnotations: IAnnotation[]
 ): AppThunk => async (dispatch) => {
   dispatch(updateLoader());
   try {
-    const response = await getAnonymizedDoc(newAnnotations, docID);
+    const response = await getAnonymizedDoc(
+      newAnnotations,
+      docID,
+      deleteAnnotations
+    );
     dispatch(updateAnonymizedDocSuccess(response));
   } catch (err) {
     dispatch(
