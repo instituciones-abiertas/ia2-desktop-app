@@ -98,7 +98,7 @@
       "output": "release"
     }
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "keywords": [
     "electron",
     "react",
