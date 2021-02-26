@@ -17,6 +17,8 @@ import {
   updateAnnotations,
   updateNewAnnotations,
   updateDeleteAnnotations,
+  removeNewAnnotations,
+  removeDeleteAnnotations,
 } from '../anonymizerSlice';
 import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
@@ -116,11 +118,31 @@ export default function EditionStep() {
   const classes = useStyles();
 
   const handleEntitySelection = (value, span) => {
-    dispatch(updateNewAnnotations([span]));
+    // Check if annotations exist in deleteAnnotations array
+    if (
+      state.deleteAnnotations.some(
+        (annot) => annot.start == span.start && annot.end == span.end
+      )
+    ) {
+      // Remove a delete annotation and update annotations by show in editor
+      dispatch(removeDeleteAnnotations(span));
+      dispatch(updateAnnotations([...state.annotations.concat([span])]));
+    } else {
+      // Update new annotations by show in editor
+      dispatch(updateNewAnnotations([span]));
+    }
   };
 
-  const handleDelete = (index: number) => {
-    if (index >= 0) {
+  const handleDelete = (index: number, value) => {
+    // Check if annotations exist in newAnnotations array
+    if (
+      state.newAnnotations.some(
+        (annot) => annot.start == value.start && annot.end == value.end
+      )
+    ) {
+      dispatch(removeNewAnnotations(value));
+    } else {
+      // Add a delete annotation and update annotations by don't show in editor
       dispatch(updateDeleteAnnotations([state.annotations[index]]));
       dispatch(
         updateAnnotations([
@@ -132,8 +154,8 @@ export default function EditionStep() {
     return null;
   };
 
-  const handleClick = (index: number) => {
-    handleDelete(index);
+  const handleClick = (index: number, value) => {
+    handleDelete(index, value);
   };
 
   const renderSelect = () => {
@@ -223,7 +245,7 @@ export default function EditionStep() {
               })}
               markClass={styles.mark}
               tagNameColor={styles.mark}
-              handleClick={(index) => handleClick(index)}
+              handleClick={(index, value) => handleClick(index, value)}
               withCompletedWordSelection
             />
           </Paper>

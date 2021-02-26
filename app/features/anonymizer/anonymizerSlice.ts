@@ -94,6 +94,19 @@ const anonymizerSlice = createSlice({
     updateDeleteAnnotations: (state, action) => {
       state.deleteAnnotations = state.deleteAnnotations.concat(action.payload);
     },
+    removeNewAnnotations: (state, action) => {
+      state.newAnnotations = state.newAnnotations.filter(
+        //Only necessary check start
+        (item) => item.start !== action.payload.start
+      );
+    },
+    removeDeleteAnnotations: (state, action) => {
+      state.deleteAnnotations = state.deleteAnnotations.filter(
+        //Only necessary check start
+        (item) => item.start !== action.payload.start
+      );
+    },
+
     updateErrorStatus: (state, action) => {
       state.hasError = action.payload.status;
       state.isLoading = false;
@@ -152,6 +165,8 @@ export const {
   decrementStep,
   incrementStep,
   updateSuccess,
+  removeDeleteAnnotations,
+  removeNewAnnotations,
 } = anonymizerSlice.actions;
 
 export const getEntitiesFromDoc = (
