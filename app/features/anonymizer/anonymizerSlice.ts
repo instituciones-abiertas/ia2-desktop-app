@@ -176,7 +176,16 @@ export const getEntitiesFromDoc = (
   dispatch(updateLoader());
   try {
     const response = await getDocAnalysis(doc, docName);
-    dispatch(updateAnalysisSuccess(response));
+    const mappedResponse = {
+      ...response,
+      ents: response.ents.map((ent) => {
+        return {
+          ...ent,
+          class: ent.should_anonymized ? 'mark' : 'anonimyzemark',
+        };
+      }),
+    };
+    dispatch(updateAnalysisSuccess(mappedResponse));
   } catch (err) {
     dispatch(
       updateErrorStatus({

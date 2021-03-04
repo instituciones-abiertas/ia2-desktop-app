@@ -1,6 +1,12 @@
 .mark {
   margin: 0 0.15em;
   font-weight: bold;
-  background-color: #f3c498;
+  background-color: #833c33;
+  color: #333441;
+}
+.anonimyzemark {
+  margin: 0 0.15em;
+  font-weight: bold;
+  background-color: #03c498;
   color: #333441;
 }
