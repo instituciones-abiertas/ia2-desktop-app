@@ -27,6 +27,7 @@ export default function TableResult() {
         <TableRow>
           <TableCell style={{ fontWeight: 'bold' }}>ENTIDAD</TableCell>
           <TableCell align="right">MODELO </TableCell>
+          <TableCell align="right">ERROR</TableCell>
           <TableCell align="right">MANUAL </TableCell>
           <TableCell align="right">EFECTIVIDAD</TableCell>
         </TableRow>
@@ -37,6 +38,9 @@ export default function TableResult() {
             <TableCell scope="row">{row.ent}</TableCell>
             <TableCell align="right" className={classes.result}>
               {row.model_detect}
+            </TableCell>
+            <TableCell align="right" className={classes.result}>
+              {row.model_wrong_detect}
             </TableCell>
             <TableCell align="right" className={classes.result}>
               {row.human_detect}

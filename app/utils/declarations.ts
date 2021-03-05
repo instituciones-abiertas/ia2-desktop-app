@@ -5,6 +5,7 @@ export interface IDoc {
 }
 
 export interface IAnnotation {
+  id: number;
   start: number;
   end: number;
   tag: string;

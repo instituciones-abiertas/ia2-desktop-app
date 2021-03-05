@@ -12,7 +12,14 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
-import { selectAnonymizer, updateAnnotations } from '../anonymizerSlice';
+import {
+  selectAnonymizer,
+  updateAnnotations,
+  updateNewAnnotations,
+  updateDeleteAnnotations,
+  removeNewAnnotations,
+  removeDeleteAnnotations,
+} from '../anonymizerSlice';
 import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
@@ -110,12 +117,33 @@ export default function EditionStep() {
   const [selectedTag, setSelectedTag] = useState<string>('PER');
   const classes = useStyles();
 
-  const handleEntitySelection = (value) => {
-    dispatch(updateAnnotations(value));
+  const handleEntitySelection = (value, span) => {
+    // Check if annotations exist in deleteAnnotations array
+    if (
+      state.deleteAnnotations.some(
+        (annot) => annot.start == span.start && annot.end == span.end
+      )
+    ) {
+      // Remove a delete annotation and update annotations by show in editor
+      dispatch(removeDeleteAnnotations(span));
+      dispatch(updateAnnotations([...state.annotations.concat([span])]));
+    } else {
+      // Update new annotations by show in editor
+      dispatch(updateNewAnnotations([span]));
+    }
   };
 
-  const handleDelete = (index: number) => {
-    if (index >= 0) {
+  const handleDelete = (index: number, value) => {
+    // Check if annotations exist in newAnnotations array
+    if (
+      state.newAnnotations.some(
+        (annot) => annot.start == value.start && annot.end == value.end
+      )
+    ) {
+      dispatch(removeNewAnnotations(value));
+    } else {
+      // Add a delete annotation and update annotations by don't show in editor
+      dispatch(updateDeleteAnnotations([state.annotations[index]]));
       dispatch(
         updateAnnotations([
           ...state.annotations.slice(0, index),
@@ -126,8 +154,8 @@ export default function EditionStep() {
     return null;
   };
 
-  const handleClick = (index: number) => {
-    handleDelete(index);
+  const handleClick = (index: number, value) => {
+    handleDelete(index, value);
   };
 
   const renderSelect = () => {
@@ -207,8 +235,8 @@ export default function EditionStep() {
                 zoom: 1,
               }}
               content={state.text}
-              value={state.annotations}
-              onChange={(value) => handleEntitySelection(value)}
+              value={state.annotations.concat(state.newAnnotations)}
+              onChange={(value, span) => handleEntitySelection(value, span)}
               getSpan={(span) => ({
                 ...span,
                 should_anonymized: true,
@@ -217,7 +245,7 @@ export default function EditionStep() {
               })}
               markClass={styles.mark}
               tagNameColor={styles.mark}
-              handleClick={(index) => handleClick(index)}
+              handleClick={(index, value) => handleClick(index, value)}
               withCompletedWordSelection
             />
           </Paper>
