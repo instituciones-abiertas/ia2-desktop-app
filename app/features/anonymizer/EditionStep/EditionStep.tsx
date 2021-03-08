@@ -25,6 +25,7 @@ import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
 import Loader from '../../../components/Loader/Loader';
+import { INITIAL_ENTITY } from '../../../constants/stepper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EditionStep() {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
-  const [selectedTag, setSelectedTag] = useState<string>('PER');
+  const [selectedTag, setSelectedTag] = useState<string>(INITIAL_ENTITY);
   const classes = useStyles();
   const handleEntitySelection = (value, span) => {
     // Check if annotations exist in deleteAnnotations array

@@ -10,8 +10,10 @@ import {
   updateSubject,
   updateDocName,
   updateTags,
+  updateSelectTag,
 } from '../anonymizerSlice';
 import { getEntities } from '../../../api/anonymizationApi';
+import { INITIAL_ENTITY } from '../../../constants/stepper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,6 +99,7 @@ export default function UploaderStep() {
     const fetchData = async () => {
       const result = await getEntities();
       dispatch(updateTags(result));
+      dispatch(updateSelectTag(INITIAL_ENTITY));
     };
     fetchData();
   }, [dispatch]);
