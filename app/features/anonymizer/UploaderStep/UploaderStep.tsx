@@ -99,7 +99,8 @@ export default function UploaderStep() {
     const fetchData = async () => {
       const result = await getEntities();
       dispatch(updateTags(result));
-      dispatch(updateSelectTag(INITIAL_ENTITY));
+      // Setea como entidad default la primera entidad que provee el backend.Deberia dar error si no hay entidades desde el back.
+      dispatch(updateSelectTag(result[0].name));
     };
     fetchData();
   }, [dispatch]);

@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EditionStep() {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
-  const [selectedTag, setSelectedTag] = useState<string>(INITIAL_ENTITY);
+  const [selectedTag, setSelectedTag] = useState<string>(state.selectTag.name);
   const classes = useStyles();
   const handleEntitySelection = (value, span) => {
     // Check if annotations exist in deleteAnnotations array
