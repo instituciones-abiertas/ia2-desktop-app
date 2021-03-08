@@ -25,7 +25,6 @@ import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
 import Loader from '../../../components/Loader/Loader';
-import { INITIAL_ENTITY } from '../../../constants/stepper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
