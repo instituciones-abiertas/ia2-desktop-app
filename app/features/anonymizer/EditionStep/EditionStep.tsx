@@ -19,6 +19,7 @@ import {
   updateDeleteAnnotations,
   removeNewAnnotations,
   removeDeleteAnnotations,
+  updateSelectTag,
 } from '../anonymizerSlice';
 import Instructions from '../../../components/Instructions/Instructions';
 import styles from './EditionStep.css';
@@ -114,9 +115,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EditionStep() {
   const state = useSelector(selectAnonymizer);
   const dispatch = useDispatch();
-  const [selectedTag, setSelectedTag] = useState<string>('PER');
+  const [selectedTag, setSelectedTag] = useState<string>(state.selectTag.name);
   const classes = useStyles();
-
   const handleEntitySelection = (value, span) => {
     // Check if annotations exist in deleteAnnotations array
     if (
@@ -158,6 +158,10 @@ export default function EditionStep() {
     handleDelete(index, value);
   };
 
+  const handleTagSelection = (event) => {
+    dispatch(updateSelectTag(event.target.value));
+    setSelectedTag(event.target.value as string);
+  };
   const renderSelect = () => {
     return (
       <FormControl className={classes.selectorContainer} color="secondary">
@@ -167,7 +171,7 @@ export default function EditionStep() {
           labelId="tag"
           id="tag"
           value={selectedTag}
-          onChange={(event) => setSelectedTag(event.target.value as string)}
+          onChange={(event) => handleTagSelection(event)}
           className={classes.selector}
           color="secondary"
           classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
@@ -175,7 +179,7 @@ export default function EditionStep() {
         >
           {state.tags.map((tag) => {
             return (
-              <MenuItem key={tag.id} value={tag.name}>
+              <MenuItem key={tag.id} value={tag.name} id={tag.id}>
                 <Typography
                   component="h1"
                   variant="subtitle1"
@@ -239,12 +243,15 @@ export default function EditionStep() {
               onChange={(value, span) => handleEntitySelection(value, span)}
               getSpan={(span) => ({
                 ...span,
-                should_anonymized: true,
+                should_anonymized: state.selectTag.should_anonimyzation,
                 human_marked_ocurrency: true,
                 tag: selectedTag,
+                class: state.selectTag.should_anonimyzation
+                  ? styles.mark
+                  : styles.anonymousmark,
               })}
+              markStyle={styles}
               markClass={styles.mark}
-              tagNameColor={styles.mark}
               handleClick={(index, value) => handleClick(index, value)}
               withCompletedWordSelection
             />

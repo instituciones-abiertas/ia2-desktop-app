@@ -4,6 +4,7 @@ import { AppThunk, RootState } from '../../store';
 // eslint-disable-next-line import/no-cycle
 import { getAnonymizedDoc, getDocAnalysis } from '../../api/anonymizationApi';
 import { IAnnotation } from '../../utils/declarations';
+import styles from '../anonymizer/EditionStep/EditionStep.css';
 
 const anonymizerSlice = createSlice({
   name: 'anonymizer',
@@ -15,6 +16,7 @@ const anonymizerSlice = createSlice({
     annotations: [],
     newAnnotations: [],
     deleteAnnotations: [],
+    selectTag: null,
     anonymizedText: '',
     subject: 'PENAL',
     isLoading: false,
@@ -142,6 +144,9 @@ const anonymizerSlice = createSlice({
         'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
     },
+    updateSelectTag: (state, action) => {
+      state.selectTag = state.tags.find((tag) => tag.name == action.payload);
+    },
   },
 });
 
@@ -167,6 +172,7 @@ export const {
   updateSuccess,
   removeDeleteAnnotations,
   removeNewAnnotations,
+  updateSelectTag,
 } = anonymizerSlice.actions;
 
 export const getEntitiesFromDoc = (
@@ -176,7 +182,16 @@ export const getEntitiesFromDoc = (
   dispatch(updateLoader());
   try {
     const response = await getDocAnalysis(doc, docName);
-    dispatch(updateAnalysisSuccess(response));
+    const mappedResponse = {
+      ...response,
+      ents: response.ents.map((ent) => {
+        return {
+          ...ent,
+          class: ent.should_anonymized ? styles.mark : styles.anonymousmark,
+        };
+      }),
+    };
+    dispatch(updateAnalysisSuccess(mappedResponse));
   } catch (err) {
     dispatch(
       updateErrorStatus({
