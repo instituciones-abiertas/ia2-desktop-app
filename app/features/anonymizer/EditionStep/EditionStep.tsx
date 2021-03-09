@@ -214,6 +214,14 @@ export default function EditionStep() {
         <Instructions
           title="Selecciona una etiqueta"
           subtitle="Luego elimina, agrega o corrige las entidades identificadas."
+          //Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
+          legends={[
+            { color: '#03c498', description: 'A anonimizar' },
+            {
+              color: '#f3c498',
+              description: 'Solo marcado',
+            },
+          ]}
         >
           {renderSelect()}
         </Instructions>

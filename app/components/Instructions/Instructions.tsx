@@ -1,6 +1,6 @@
 import React, { ReactChild } from 'react';
 import InfoIcon from '@material-ui/icons/InfoRounded';
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Box } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,18 +40,26 @@ const useStyles = makeStyles((theme: Theme) =>
     textContainer: {
       width: theme.spacing(50),
     },
+    smallbox: {
+      float: 'left',
+      width: '10px',
+      height: '10px',
+      margin: '5px',
+      border: '1px solid rgba(0, 0, 0, 0.2)',
+    },
   })
 );
 
 interface InstructionsProps {
   title: string;
   subtitle: string;
+  legends: [];
   children?: ReactChild;
 }
 
 export default function Instructions(props: InstructionsProps) {
   const classes = useStyles();
-  const { title, subtitle, children } = props;
+  const { title, subtitle, legends, children } = props;
   return (
     <>
       <Paper square className={classes.instructions} elevation={3}>
@@ -67,6 +75,19 @@ export default function Instructions(props: InstructionsProps) {
           <Typography component="h1" variant="body2">
             {subtitle}
           </Typography>
+          <Box style={{ display: 'flex' }}>
+            {legends.map((legend) => {
+              return (
+                <Typography>
+                  <div
+                    className={classes.smallbox}
+                    style={{ backgroundColor: legend.color }}
+                  ></div>
+                  {legend.description}
+                </Typography>
+              );
+            })}
+          </Box>
         </div>
         {children || null}
       </Paper>
