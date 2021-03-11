@@ -76,13 +76,13 @@ export default function Instructions(props: InstructionsProps) {
             {subtitle}
           </Typography>
           <Box style={{ display: 'flex' }}>
-            {legends.map((legend) => {
+            {legends.map((legend, index) => {
               return (
-                <Typography>
-                  <div
+                <Typography component={'span'} key={`legend-${index}`}>
+                  <span
                     className={classes.smallbox}
                     style={{ backgroundColor: legend.color }}
-                  ></div>
+                  ></span>
                   {legend.description}
                 </Typography>
               );
