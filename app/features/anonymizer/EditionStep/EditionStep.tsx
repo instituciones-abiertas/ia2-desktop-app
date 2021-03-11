@@ -121,7 +121,7 @@ export default function EditionStep() {
     // Check if annotations exist in deleteAnnotations array
     if (
       state.deleteAnnotations.some(
-        (annot) => annot.start == span.start && annot.end == span.end
+        (annot) => annot.start === span.start && annot.end === span.end
       )
     ) {
       // Remove a delete annotation and update annotations by show in editor
@@ -137,7 +137,7 @@ export default function EditionStep() {
     // Check if annotations exist in newAnnotations array
     if (
       state.newAnnotations.some(
-        (annot) => annot.start == value.start && annot.end == value.end
+        (annot) => annot.start === value.start && annot.end === value.end
       )
     ) {
       dispatch(removeNewAnnotations(value));
@@ -214,12 +214,19 @@ export default function EditionStep() {
         <Instructions
           title="Selecciona una etiqueta"
           subtitle="Luego elimina, agrega o corrige las entidades identificadas."
-          //Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
+          // Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
           legends={[
-            { color: '#03c498', description: 'A anonimizar' },
+            {
+              color: '#00D6A1',
+              description: 'Anonimizable',
+              tooltipText:
+                'Las palabras etiquetadas con éste color aparecerán anonimizadas en el documento final. Cada etiqueta contribuye a mejorar la detección automática de entidades.',
+            },
             {
               color: '#f3c498',
-              description: 'Solo marcado',
+              description: 'No anonimizable',
+              tooltipText:
+                'Las palabras etiquetadas con éste color no aparecerán anonimizadas en el documento final. Cada etiqueta contribuye a mejorar la detección automática de entidades.',
             },
           ]}
         >

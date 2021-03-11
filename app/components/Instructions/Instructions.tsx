@@ -2,6 +2,7 @@ import React, { ReactChild } from 'react';
 import InfoIcon from '@material-ui/icons/InfoRounded';
 import { Paper, Typography, Box } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,15 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '5px',
       border: '1px solid rgba(0, 0, 0, 0.2)',
     },
+    legendsBox: {
+      display: 'flex',
+      borderRadius: '10px',
+      backgroundColor: '#6c757d',
+      marginTop: '0.7rem',
+      marginBottom: '0.7rem',
+      justifyContent: 'space-evenly',
+      width: '70%',
+    },
   })
 );
 
@@ -75,16 +85,18 @@ export default function Instructions(props: InstructionsProps) {
           <Typography component="h1" variant="body2">
             {subtitle}
           </Typography>
-          <Box style={{ display: 'flex' }}>
+          <Box className={classes.legendsBox}>
             {legends.map((legend, index) => {
               return (
-                <Typography component={'span'} key={`legend-${index}`}>
-                  <span
-                    className={classes.smallbox}
-                    style={{ backgroundColor: legend.color }}
-                  ></span>
-                  {legend.description}
-                </Typography>
+                <Tooltip title={legend.tooltipText} key={`legend-${index}`}>
+                  <Typography component="span">
+                    <span
+                      className={classes.smallbox}
+                      style={{ backgroundColor: legend.color }}
+                    />
+                    {legend.description}
+                  </Typography>
+                </Tooltip>
               );
             })}
           </Box>
