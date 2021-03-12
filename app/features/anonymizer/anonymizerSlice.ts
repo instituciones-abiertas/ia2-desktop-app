@@ -187,7 +187,7 @@ export const getEntitiesFromDoc = (
       ents: response.ents.map((ent) => {
         return {
           ...ent,
-          class: ent.should_anonymized ? styles.mark : styles.anonymousmark,
+          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
         };
       }),
     };

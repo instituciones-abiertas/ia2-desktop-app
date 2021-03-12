@@ -262,8 +262,8 @@ export default function EditionStep() {
                 human_marked_ocurrency: true,
                 tag: selectedTag,
                 class: state.selectTag.should_anonimyzation
-                  ? styles.mark
-                  : styles.anonymousmark,
+                  ? styles.anonymousmark
+                  : styles.mark,
               })}
               markStyle={styles}
               markClass={styles.mark}
