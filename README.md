@@ -150,6 +150,10 @@ yarn package --windows
 - `--ia32`
 - `--x64`
 
+## Licencia
+
+[**GNU General Public License version 3**](LICENSE)
+
 ## Contribuciones
 
 Por favor, asegúrese de leer los [lineamientos de contribución](CONTRIBUTING.md) antes de realizar Pull Requests.
