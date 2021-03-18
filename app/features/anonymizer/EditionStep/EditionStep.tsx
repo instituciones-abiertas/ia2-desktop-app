@@ -121,7 +121,7 @@ export default function EditionStep() {
     // Check if annotations exist in deleteAnnotations array
     if (
       state.deleteAnnotations.some(
-        (annot) => annot.start == span.start && annot.end == span.end
+        (annot) => annot.start === span.start && annot.end === span.end
       )
     ) {
       // Remove a delete annotation and update annotations by show in editor
@@ -137,7 +137,7 @@ export default function EditionStep() {
     // Check if annotations exist in newAnnotations array
     if (
       state.newAnnotations.some(
-        (annot) => annot.start == value.start && annot.end == value.end
+        (annot) => annot.start === value.start && annot.end === value.end
       )
     ) {
       dispatch(removeNewAnnotations(value));
@@ -176,6 +176,7 @@ export default function EditionStep() {
           color="secondary"
           classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
           disableUnderline
+          style={{display: 'flex', alignSelf: 'flex-end', margin: '24px'}}
         >
           {state.tags.map((tag) => {
             return (
@@ -213,7 +214,18 @@ export default function EditionStep() {
       <div className={classes.container}>
         <Instructions
           title="Selecciona una etiqueta"
-          subtitle="Luego elimina, agrega o corrige las entidades identificadas."
+          subtitle="Luego elimina, agrega o corrige las entidades identificadas. IA² detecta las etiquetas y realizará las siguientes acciones con cada una según su color:"
+          // Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
+          legends={[
+            {
+              color: '#00D6A1',
+              description: 'Anonimizar',
+            },
+            {
+              color: '#ffca00',
+              description: 'No anonimizar',
+            },
+          ]}
         >
           {renderSelect()}
         </Instructions>
@@ -247,8 +259,8 @@ export default function EditionStep() {
                 human_marked_ocurrency: true,
                 tag: selectedTag,
                 class: state.selectTag.should_anonimyzation
-                  ? styles.mark
-                  : styles.anonymousmark,
+                  ? styles.anonymousmark
+                  : styles.mark,
               })}
               markStyle={styles}
               markClass={styles.mark}

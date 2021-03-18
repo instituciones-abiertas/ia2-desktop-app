@@ -32,14 +32,18 @@ const useStyles = makeStyles((theme: Theme) =>
     editionStepButton: {
       marginTop: theme.spacing(11),
       fontWeight: 'bold',
-      width: theme.spacing(18),
+      width: 'max-content',
       borderRadius: theme.spacing(10),
       color: theme.palette.common.white,
       backgroundColor: theme.palette.secondary.main,
-      padding: theme.spacing(0.2),
+      padding: theme.spacing(1),
       '&:hover': {
+        backgroundColor: theme.palette.primary.main,
         color: theme.palette.secondary.main,
       },
+      '&:hover svg': {
+        color: theme.palette.primary.contrastText
+      }
     },
     uploaderStepButton: {
       width: theme.spacing(20),
@@ -108,7 +112,7 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: '0.9',
     },
     iconButton: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(0.2),
       color: theme.palette.primary.main,
     },
     buttonWithIcon: {
@@ -254,6 +258,7 @@ export default function AnonymizationStepper() {
                   onClick={handleBack}
                   variant="contained"
                   className={classes.editionStepButton}
+                  style={{paddingRight: '14px'}}
                 >
                   <ArrowBackIosRoundedIcon
                     className={classes.iconButton}
@@ -277,6 +282,11 @@ export default function AnonymizationStepper() {
                     isUploaderStep()
                       ? classes.uploaderStepButton
                       : classes.editionStepButton
+                  }
+                  style={
+                    isUploaderStep()
+                      ? {}
+                      : {paddingLeft: '14px'}
                   }
                 >
                   {isUploaderStep() ? (
