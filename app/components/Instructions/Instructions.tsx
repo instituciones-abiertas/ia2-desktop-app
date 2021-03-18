@@ -2,7 +2,6 @@ import React, { ReactChild } from 'react';
 import InfoIcon from '@material-ui/icons/InfoRounded';
 import { Paper, Typography, Box } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,9 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontWeight: 'bold',
+      paddingTop: theme.spacing(1.5),
+      paddingBottom: theme.spacing(0.5),
     },
     instructionsIcon: {
       padding: theme.spacing(3),
+      alignSelf: 'flex-start',
+      paddingTop: theme.spacing(1)
     },
     instructions: {
       backgroundColor: theme.palette.secondary.main,
@@ -39,22 +42,23 @@ const useStyles = makeStyles((theme: Theme) =>
       borderTopLeftRadius: theme.spacing(2),
     },
     textContainer: {
-      width: theme.spacing(50),
+      width: theme.spacing(70),
     },
     smallbox: {
       float: 'left',
       width: '10px',
       height: '10px',
-      margin: '5px',
+      marginTop: '5px',
+      marginBottom: '5px',
+      marginRight: '5px',
       border: '1px solid rgba(0, 0, 0, 0.2)',
     },
     legendsBox: {
       display: 'flex',
-      borderRadius: '10px',
-      backgroundColor: '#6c757d',
+      backgroundColor: 'transparent',
       marginTop: '0.7rem',
       marginBottom: '0.7rem',
-      justifyContent: 'space-evenly',
+      justifyContent: 'flex-start',
       width: '70%',
     },
   })
@@ -88,15 +92,18 @@ export default function Instructions(props: InstructionsProps) {
           <Box className={classes.legendsBox}>
             {legends.map((legend, index) => {
               return (
-                <Tooltip title={legend.tooltipText} key={`legend-${index}`}>
-                  <Typography component="span">
-                    <span
-                      className={classes.smallbox}
-                      style={{ backgroundColor: legend.color }}
-                    />
+                <Typography component="span" style={{display: 'flex', alignItems: 'center'}}>
+                  <span
+                    className={classes.smallbox}
+                    style={{
+                      backgroundColor: legend.color,
+                      marginLeft: index !== 0 ? '5px' : '0px'
+                    }}
+                  />
+                  <Typography variant="caption">
                     {legend.description}
                   </Typography>
-                </Tooltip>
+                </Typography>
               );
             })}
           </Box>
