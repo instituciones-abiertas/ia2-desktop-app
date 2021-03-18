@@ -176,6 +176,7 @@ export default function EditionStep() {
           color="secondary"
           classes={{ icon: classes.selectorIcon, select: classes.selectInput }}
           disableUnderline
+          style={{display: 'flex', alignSelf: 'flex-end', margin: '24px'}}
         >
           {state.tags.map((tag) => {
             return (
@@ -213,20 +214,16 @@ export default function EditionStep() {
       <div className={classes.container}>
         <Instructions
           title="Selecciona una etiqueta"
-          subtitle="Luego elimina, agrega o corrige las entidades identificadas."
+          subtitle="Luego elimina, agrega o corrige las entidades identificadas. IA² detecta las etiquetas y realizará las siguientes acciones con cada una según su color:"
           // Hardcodeados los colores y los textos, pensar si no hacer un servicio de backend,que brinde los colores y los textos
           legends={[
             {
               color: '#00D6A1',
-              description: 'Anonimizable',
-              tooltipText:
-                'Las palabras etiquetadas con éste color aparecerán anonimizadas en el documento final. Cada etiqueta contribuye a mejorar la detección automática de entidades.',
+              description: 'Anonimizar',
             },
             {
-              color: '#f3c498',
-              description: 'No anonimizable',
-              tooltipText:
-                'Las palabras etiquetadas con éste color no aparecerán anonimizadas en el documento final. Cada etiqueta contribuye a mejorar la detección automática de entidades.',
+              color: '#ffca00',
+              description: 'No anonimizar',
             },
           ]}
         >
