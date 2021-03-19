@@ -4,6 +4,7 @@ import { AppThunk, RootState } from '../../store';
 // eslint-disable-next-line import/no-cycle
 import { getAnonymizedDoc, getDocAnalysis } from '../../api/anonymizationApi';
 import { IAnnotation } from '../../utils/declarations';
+import styles from '../anonymizer/EditionStep/EditionStep.css';
 
 const anonymizerSlice = createSlice({
   name: 'anonymizer',
@@ -14,6 +15,8 @@ const anonymizerSlice = createSlice({
     documentName: '',
     annotations: [],
     newAnnotations: [],
+    deleteAnnotations: [],
+    selectTag: null,
     anonymizedText: '',
     subject: 'PENAL',
     isLoading: false,
@@ -88,8 +91,24 @@ const anonymizerSlice = createSlice({
       state.annotations = action.payload;
     },
     updateNewAnnotations: (state, action) => {
-      state.newAnnotations = action.payload;
+      state.newAnnotations = state.newAnnotations.concat(action.payload);
     },
+    updateDeleteAnnotations: (state, action) => {
+      state.deleteAnnotations = state.deleteAnnotations.concat(action.payload);
+    },
+    removeNewAnnotations: (state, action) => {
+      state.newAnnotations = state.newAnnotations.filter(
+        //Only necessary check start
+        (item) => item.start !== action.payload.start
+      );
+    },
+    removeDeleteAnnotations: (state, action) => {
+      state.deleteAnnotations = state.deleteAnnotations.filter(
+        //Only necessary check start
+        (item) => item.start !== action.payload.start
+      );
+    },
+
     updateErrorStatus: (state, action) => {
       state.hasError = action.payload.status;
       state.isLoading = false;
@@ -116,6 +135,7 @@ const anonymizerSlice = createSlice({
       state.documentName = '';
       state.annotations = [];
       state.newAnnotations = [];
+      state.deleteAnnotations = [];
       state.anonymizedText = '';
       state.isLoading = false;
       state.hasError = false;
@@ -123,6 +143,9 @@ const anonymizerSlice = createSlice({
       state.errorMessage =
         'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
+    },
+    updateSelectTag: (state, action) => {
+      state.selectTag = state.tags.find((tag) => tag.name == action.payload);
     },
   },
 });
@@ -141,11 +164,15 @@ export const {
   updateDocName,
   updateTags,
   updateNewAnnotations,
+  updateDeleteAnnotations,
   updateReset,
   updateStep,
   decrementStep,
   incrementStep,
   updateSuccess,
+  removeDeleteAnnotations,
+  removeNewAnnotations,
+  updateSelectTag,
 } = anonymizerSlice.actions;
 
 export const getEntitiesFromDoc = (
@@ -155,7 +182,16 @@ export const getEntitiesFromDoc = (
   dispatch(updateLoader());
   try {
     const response = await getDocAnalysis(doc, docName);
-    dispatch(updateAnalysisSuccess(response));
+    const mappedResponse = {
+      ...response,
+      ents: response.ents.map((ent) => {
+        return {
+          ...ent,
+          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+        };
+      }),
+    };
+    dispatch(updateAnalysisSuccess(mappedResponse));
   } catch (err) {
     dispatch(
       updateErrorStatus({
@@ -169,11 +205,16 @@ export const getEntitiesFromDoc = (
 
 export const getAnonymization = (
   newAnnotations: IAnnotation[],
-  docID: number
+  docID: number,
+  deleteAnnotations: IAnnotation[]
 ): AppThunk => async (dispatch) => {
   dispatch(updateLoader());
   try {
-    const response = await getAnonymizedDoc(newAnnotations, docID);
+    const response = await getAnonymizedDoc(
+      newAnnotations,
+      docID,
+      deleteAnnotations
+    );
     dispatch(updateAnonymizedDocSuccess(response));
   } catch (err) {
     dispatch(

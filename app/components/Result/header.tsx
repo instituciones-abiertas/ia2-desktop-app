@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     instructionsIcon: {
       padding: theme.spacing(3),
+      display: 'flex',
+      alignSelf: 'start'
     },
     levelContainer: {
       flexGrow: 1,

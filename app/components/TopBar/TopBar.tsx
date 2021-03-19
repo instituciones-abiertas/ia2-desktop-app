@@ -15,7 +15,7 @@ import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
 import { useDispatch } from 'react-redux';
 import routes from '../../constants/routes.json';
 import PopUpReset from '../ErrorVisualizer/PopUpReset';
-import logoImage from '../../assets/img/logo_blanco.png';
+import logoImage from '../../assets/img/logo_verde.png';
 import { updateReset } from '../../features/anonymizer/anonymizerSlice';
 import { useLogOut } from '../../features/login/authHook';
 

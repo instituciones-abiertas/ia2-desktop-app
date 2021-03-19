@@ -10,8 +10,10 @@ import {
   updateSubject,
   updateDocName,
   updateTags,
+  updateSelectTag,
 } from '../anonymizerSlice';
 import { getEntities } from '../../../api/anonymizationApi';
+import { INITIAL_ENTITY } from '../../../constants/stepper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,6 +99,8 @@ export default function UploaderStep() {
     const fetchData = async () => {
       const result = await getEntities();
       dispatch(updateTags(result));
+      // Setea como entidad default la primera entidad que provee el backend.Deberia dar error si no hay entidades desde el back.
+      dispatch(updateSelectTag(result[0].name));
     };
     fetchData();
   }, [dispatch]);
