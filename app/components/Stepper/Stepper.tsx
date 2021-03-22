@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
+import StepConnector from '@material-ui/core/StepConnector';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -88,13 +89,14 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         fontSize: theme.spacing(2),
       },
-      color: theme.palette.secondary.main,
+      color: '#6c757d',
     },
     stepLabelCompleted: {
-      color: theme.palette.secondary.main,
+      color: `${theme.palette.secondary.main} !important`,
+      fontWeight: 'bold !important',
     },
     stepLabelActive: {
-      color: theme.palette.primary.main,
+      color: `${theme.palette.primary.main} !important`,
     },
     stepIcon: {
       fontSize: theme.spacing(6),
@@ -105,7 +107,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stepIconCompleted: {
       fontSize: theme.spacing(6),
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      fill: theme.palette.secondary.main,
     },
     stepLabelError: {
       color: '#f44336',
@@ -134,6 +137,29 @@ function getStepContent(stepIndex: number) {
       return <ResultSep />;
   }
 }
+
+const QontoConnector = withStyles(({palette}) => ({
+  alternativeLabel: {
+    top: '25%',
+    left: 'calc(-50% + 24px)',
+    right: 'calc(50% + 24px)',
+    position: 'absolute',
+  },
+  active: {
+    '& $line': {
+      borderColor: palette.primary.main,
+    },
+  },
+  completed: {
+    '& $line': {
+      borderColor: palette.secondary.main,
+    },
+  },
+  line: {
+    borderColor: '#6c757d',
+    borderWidth: 3,
+  },
+}))(StepConnector);
 
 export default function AnonymizationStepper() {
   const classes = useStyles();
@@ -215,6 +241,7 @@ export default function AnonymizationStepper() {
         activeStep={state.activeStep}
         className={classes.stepper}
         alternativeLabel
+        connector={<QontoConnector />}
       >
         {steps.map((label, index) => {
           return (
