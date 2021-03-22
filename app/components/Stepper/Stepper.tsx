@@ -100,10 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stepIcon: {
       fontSize: theme.spacing(6),
+      fill: '#6c757d',
     },
     stepIconActive: {
       fontSize: theme.spacing(6),
       color: theme.palette.secondary.main,
+      fill: theme.palette.primary.main
     },
     stepIconCompleted: {
       fontSize: theme.spacing(6),
