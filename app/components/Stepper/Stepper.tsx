@@ -143,9 +143,10 @@ function getStepContent(stepIndex: number) {
 const QontoConnector = withStyles(({palette}) => ({
   alternativeLabel: {
     top: '25%',
-    left: 'calc(-50% + 24px)',
-    right: 'calc(50% + 24px)',
+    left: 'calc(-50% + 23px)',
+    right: 'calc(50% + 23px)',
     position: 'absolute',
+    zIndex: -1,
   },
   active: {
     '& $line': {
