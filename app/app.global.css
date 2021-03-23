@@ -32,6 +32,7 @@ body {
   height: 100vh;
   background-color: #e7e8ec;
   overflow-y: hidden;
+  cursor: default;
 }
 
 *::-webkit-scrollbar {

@@ -1,12 +1,12 @@
 {
   "name": "inteligencia-artificial-x-instituciones-abiertas",
   "productName": "Inteligencia Artificial x Instituciones Abiertas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Herramienta para la anonimización de documentos.",
   "author": {
-    "name": "Cambá, Cooperativa tecnológica",
-    "email": "info@camba.coop",
-    "url": "https://camba.coop/"
+    "name": "IA²",
+    "email": "info@ia2.coop",
+    "url": "https://ia2.coop/"
   },
   "scripts": {
     "web": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
@@ -59,7 +59,7 @@
   },
   "build": {
     "productName": "IA² ",
-    "appId": "coop.camba.IA²",
+    "appId": "coop.ia2.IA²",
     "files": [
       "dist/",
       "node_modules/",
@@ -109,7 +109,7 @@
     "anonimizacion",
     "documentos jurídicos"
   ],
-  "homepage": "https://camba.coop/",
+  "homepage": "https://ia2.coop/",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
