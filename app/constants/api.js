@@ -12,6 +12,8 @@ export const API_BASE_URL = process.env.BASE_URL
   ? process.env.BASE_URL
   : API_BASE_URL_DEFAULT;
 
+export const API = API_BASE_URL + API_URL;
+
 export const AUTH_FORBIDDEN_ERROR = 403;
 
 export const AUTH_UNAUTHORIZED_ERROR = 401;

@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Api } from 'ia2-annotation-tool';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
-// eslint-disable-next-line import/no-cycle
-import { getAnonymizedDoc, getDocAnalysis } from '../../api/anonymizationApi';
 import { IAnnotation } from '../../utils/declarations';
-import styles from '../anonymizer/EditionStep/EditionStep.css';
+import styles from './EditionStep/EditionStep.css';
+import { API } from '../../constants/api';
+
+const api = Api(API);
 
 const anonymizerSlice = createSlice({
   name: 'anonymizer',
@@ -181,7 +183,7 @@ export const getEntitiesFromDoc = (
 ): AppThunk => async (dispatch) => {
   dispatch(updateLoader());
   try {
-    const response = await getDocAnalysis(doc, docName);
+    const response = await api.getDocAnalysis(doc, docName);
     const mappedResponse = {
       ...response,
       ents: response.ents.map((ent) => {
@@ -210,7 +212,7 @@ export const getAnonymization = (
 ): AppThunk => async (dispatch) => {
   dispatch(updateLoader());
   try {
-    const response = await getAnonymizedDoc(
+    const response = await api.getAnonymizedDoc(
       newAnnotations,
       docID,
       deleteAnnotations
