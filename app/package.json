@@ -14,6 +14,5 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "GPL-3.0",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
