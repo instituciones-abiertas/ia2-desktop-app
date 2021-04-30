@@ -20,6 +20,7 @@ import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer
 import Results from '../../../components/Result/Results';
 import routes from '../../../constants/routes.json';
 import PopUpReset from '../../../components/ErrorVisualizer/PopUpReset';
+import { getDownloadFileName } from '../../../utils';
 import { API } from '../../../constants/api';
 
 const api = Api(API);
@@ -61,8 +62,9 @@ export default function ResultStep() {
   const dispatch = useDispatch();
 
   const handleDownloadClick = () => {
+    const downloadFilename = getDownloadFileName(state.documentName);
     try {
-      api.getDocToDownload(state.id, state.documentName);
+      api.getDocToDownload(state.id, downloadFilename);
     } catch (error) {
       notifyError('No se pudo descargar el documento.');
       throw error;
