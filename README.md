@@ -44,6 +44,8 @@ npm --version
 
 Instalar yarn y verificar versión
 
+> Yarn es utilizado por la mayoría de subprocesos de electron
+
 ```bash
 npm install --global yarn
 yarn --version
@@ -78,7 +80,7 @@ API_URL=/api
 
 ### Instalación
 
-`yarn install`
+`npm install`
 
 > #### No se encuentra la librería `libvips`
 >
@@ -92,6 +94,16 @@ API_URL=/api
 > Solución: instalar libvips via `apt install libvips-dev`.
 
 ### Iniciar el servidor de desarrollo
+
+Se puede utilizar cualquier de los siguientes comandos:
+
+_Utilizando `npm`_
+
+```bash
+npm run dev
+```
+
+_Utilizando `yarn`_
 
 ```bash
 yarn dev

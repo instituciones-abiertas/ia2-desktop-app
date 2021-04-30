@@ -91,20 +91,20 @@ const anonymizerSlice = createSlice({
       state.annotations = action.payload;
     },
     updateNewAnnotations: (state, action) => {
-      state.newAnnotations = state.newAnnotations.concat(action.payload);
+      state.newAnnotations = action.payload;
     },
     updateDeleteAnnotations: (state, action) => {
-      state.deleteAnnotations = state.deleteAnnotations.concat(action.payload);
+      state.deleteAnnotations = action.payload;
     },
     removeNewAnnotations: (state, action) => {
       state.newAnnotations = state.newAnnotations.filter(
-        //Only necessary check start
+        // Only necessary check start
         (item) => item.start !== action.payload.start
       );
     },
     removeDeleteAnnotations: (state, action) => {
       state.deleteAnnotations = state.deleteAnnotations.filter(
-        //Only necessary check start
+        // Only necessary check start
         (item) => item.start !== action.payload.start
       );
     },
@@ -145,7 +145,7 @@ const anonymizerSlice = createSlice({
       state.activeStep = 0;
     },
     updateSelectTag: (state, action) => {
-      state.selectTag = state.tags.find((tag) => tag.name == action.payload);
+      state.selectTag = state.tags.find((tag) => tag.name === action.payload);
     },
   },
 });
