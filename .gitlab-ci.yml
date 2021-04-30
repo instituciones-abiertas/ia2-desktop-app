@@ -26,4 +26,4 @@ deploy_packages:
     - chmod -R 666 ./release/*
     - rsync -a --delete ./release/IA* $DEPLOY_PATH
   only:
-    - cherry-pick-6bdc0c85
+    - develop
