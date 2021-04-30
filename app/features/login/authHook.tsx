@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { Api } from 'ia2-annotation-tool';
 import useClearProcessState from '../../hooks/clearProcessStateHook';
 import {
   errorLogin,
@@ -6,8 +7,9 @@ import {
   selectAuthData,
   successLogin,
 } from './authSlice';
-import { userLogin } from './loginApi';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../constants/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN, API } from '../../constants/api';
+
+const api = Api(API);
 
 export function useAuthData() {
   const user = useSelector(selectAuthData);
@@ -28,7 +30,8 @@ export function useLogin() {
   const [resetState] = useClearProcessState();
   const dispatch = useDispatch();
   const login = (password: string, username: string) =>
-    userLogin(password, username)
+    api
+      .userLogin(password, username)
       .then((data) => {
         const payload = {
           username,
