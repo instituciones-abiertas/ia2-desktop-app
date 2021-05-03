@@ -1,4 +1,12 @@
-**Describa el bug**
+---
+name: Bug
+about: Fix/Arreglo
+title: ''
+labels: 'bug'
+assignees: ''
+---
+
+## Describa el bug
 
 <!--
   Insertar descripción clara y concisa acerca del bug.
@@ -6,7 +14,15 @@
 
 _Descripción..._
 
-**Cómo reproducirlo**
+## Comportamiento esperado
+
+<!--
+  Insertar descripción clara y concisa del comportamiento esperado.
+-->
+
+_Descripción..._
+
+## Cómo reproducirlo
 
 Pasos para reproducir el comportamiento:
 
@@ -20,18 +36,15 @@ Pasos para reproducir el comportamiento:
 2. ...
 3. ...
 
-**Comportamiento esperado**
-
-<!--
-  Insertar descripción clara y concisa del comportamiento esperado.
--->
-
 _Descripción..._
 
-**Capturas de pantalla**
+## Contexto del problema
+
+> ¿Cómo le ha afectado el bug? ¿Qué estaba intentado realizar?
+> Proveer contexto nos ayuda a brindar una solución útil a su problema. -->
+
+_Descripción detallada del problema_
+
+## Capturas de pantalla
 
 Si lo consideras necesario, adjunta capturas de pantalla que ayuden a identificar el problema.
-
-**Contexto adicional**
-
-Añada cualquier otro tipo de información acerca del problema.
