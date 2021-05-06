@@ -63,12 +63,19 @@ export default function ResultStep() {
 
   const handleDownloadClick = () => {
     const downloadFilename = getDownloadFileName(state.documentName);
-    try {
-      api.getDocToDownload(state.id, downloadFilename);
-    } catch (error) {
-      notifyError('No se pudo descargar el documento.');
-      throw error;
-    }
+
+    api
+      .getDocToDownload(state.id, downloadFilename, state.task_id)
+      .then(() => {
+        notifySuccess('Esta el documento');
+      })
+      .catch((error) => {
+        if (error.request.status == 409) {
+          notifyError('Aun no esta disponible el documento');
+        } else {
+          notifyError('No se pudo descargar el documento.');
+        }
+      });
   };
 
   const handleDropboxPublishButtonClick = () => {

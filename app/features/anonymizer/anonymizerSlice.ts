@@ -19,6 +19,7 @@ const anonymizerSlice = createSlice({
     newAnnotations: [],
     deleteAnnotations: [],
     selectTag: null,
+    task_id: null,
     anonymizedText: '',
     subject: 'PENAL',
     isLoading: false,
@@ -64,6 +65,7 @@ const anonymizerSlice = createSlice({
       state.isLoading = false;
       state.hasError = false;
       state.resultData = action.payload.data_visualization;
+      state.task_id = action.payload.task_id;
     },
     updateDoc: (state, action) => {
       state.document = action.payload;
@@ -145,6 +147,7 @@ const anonymizerSlice = createSlice({
       state.errorMessage =
         'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
+      state.task_id = null;
     },
     updateSelectTag: (state, action) => {
       state.selectTag = state.tags.find((tag) => tag.name === action.payload);
