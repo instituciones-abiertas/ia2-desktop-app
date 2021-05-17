@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -13,7 +13,11 @@ import ShareIcon from '@material-ui/icons/Share';
 import DownloadIcon from '@material-ui/icons/GetAppSharp';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { Api } from 'ia2-annotation-tool';
-import { selectAnonymizer, updateReset } from '../anonymizerSlice';
+import {
+  selectAnonymizer,
+  updateReset,
+  updateDownloadButton,
+} from '../anonymizerSlice';
 import Loader from '../../../components/Loader/Loader';
 import useNotification from '../../notifications/Notification';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
@@ -58,8 +62,24 @@ export default function ResultStep() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
-
+  let intervalId = '';
   const dispatch = useDispatch();
+
+  const checkStatusCode = () => {
+    api
+      .checkStatusDownloadDocument(state.id, state.task_id)
+      .then((data) => {
+        if (data.data.status) {
+          dispatch(updateDownloadButton());
+          clearInterval(intervalId);
+        }
+        return null;
+      })
+      .catch((error) => {
+        console.log(error);
+        notifyError('No se pudo descargar el documento.');
+      });
+  };
 
   const handleDownloadClick = () => {
     const downloadFilename = getDownloadFileName(state.documentName);
@@ -67,10 +87,11 @@ export default function ResultStep() {
     api
       .getDocToDownload(state.id, downloadFilename, state.task_id)
       .then(() => {
-        notifySuccess('Esta el documento');
+        notifySuccess('Documento Listo');
+        return null;
       })
       .catch((error) => {
-        if (error.request.status == 409) {
+        if (error.request.status === 409) {
           notifyError('Aun no esta disponible el documento');
         } else {
           notifyError('No se pudo descargar el documento.');
@@ -119,6 +140,13 @@ export default function ResultStep() {
     dispatch(updateReset());
     history.push(routes.ANONIMIZATION);
   };
+  // Use trigger a checkStatusCode in this step, check exist task_id before send a request
+
+  useEffect(() => {
+    if (state.task_id != null) {
+      intervalId = setInterval(checkStatusCode, 5000);
+    }
+  }, [state.task_id]);
 
   const renderActionButtons = () => {
     return (
@@ -131,6 +159,7 @@ export default function ResultStep() {
               size="small"
               color="primary"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Descargar
               <DownloadIcon className={classes.iconButton} fontSize="small" />
@@ -181,6 +210,7 @@ export default function ResultStep() {
       </>
     );
   };
+
   const renderResultStep = () => {
     return (
       <div className={classes.results}>

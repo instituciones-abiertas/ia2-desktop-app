@@ -25,6 +25,7 @@ const anonymizerSlice = createSlice({
     isLoading: false,
     hasError: false,
     errorCode: null,
+    downloadButton: false,
     errorMessage:
       'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.',
     activeStep: 0,
@@ -131,7 +132,11 @@ const anonymizerSlice = createSlice({
     clearAnonymizerError: (state) => {
       state.hasError = false;
     },
+    updateDownloadButton: (state) => {
+      state.downloadButton = true;
+    },
     updateReset: (state) => {
+      state.downloadButton = false;
       state.subject = 'PENAL';
       state.id = 0;
       state.text = '';
@@ -178,6 +183,7 @@ export const {
   removeDeleteAnnotations,
   removeNewAnnotations,
   updateSelectTag,
+  updateDownloadButton,
 } = anonymizerSlice.actions;
 
 export const getEntitiesFromDoc = (
