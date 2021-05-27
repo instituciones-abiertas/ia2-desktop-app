@@ -99,6 +99,13 @@ API_URL=/api
 - `SENTRY_DSN`: url del servicio de Sentry.
 - `SENTRY_RELEASE`: setea el ambiente de Sentry (`staging`, `demo`, `prod`, `qa`, etc...)
 
+#### Habilitar funcionalidad de selección múltiple de entidades
+
+> Con el propósito de agilizar el proceso de etiquetado de entidades que se encuentran repetidas en el documento, es posible habilitar la funcionalidad de selección automática. Se trata de un componente que se renderiza en el paso de Edición del documento.
+> Por defecto se encuentra deshabilitada.
+
+- `MULTIPLE_SELECTION_ENABLE`: true
+
 ### Instalación
 
 `npm install`

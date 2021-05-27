@@ -207,17 +207,52 @@ export const getEntitiesFromDoc = (
 
 export const getAnonymization = (
   newAnnotations: IAnnotation[],
-  docID: number,
+  docId: number,
   deleteAnnotations: IAnnotation[]
 ): AppThunk => async (dispatch) => {
   dispatch(updateLoader());
   try {
     const response = await api.getAnonymizedDoc(
       newAnnotations,
-      docID,
+      docId,
       deleteAnnotations
     );
     dispatch(updateAnonymizedDocSuccess(response));
+  } catch (err) {
+    dispatch(
+      updateErrorStatus({
+        status: true,
+        message: err.response.data.detail,
+        errorCode: err.response.status,
+      })
+    );
+  }
+};
+
+export const getAllOcurrencies = (
+  newAnnotations: IAnnotation[],
+  docId: number,
+  deleteAnnotations: IAnnotation[],
+  entityList: number[]
+): AppThunk => async (dispatch) => {
+  dispatch(updateLoader());
+  try {
+    const response = await api.getAllOcurrenciesOf(
+      newAnnotations,
+      docId,
+      deleteAnnotations,
+      entityList
+    );
+    const mappedResponse = {
+      ...response,
+      ents: response.ents.map((ent) => {
+        return {
+          ...ent,
+          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+        };
+      }),
+    };
+    dispatch(updateAnalysisSuccess(mappedResponse));
   } catch (err) {
     dispatch(
       updateErrorStatus({
