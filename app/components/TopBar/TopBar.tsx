@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as LinkReact } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import {
@@ -11,6 +11,7 @@ import {
   Toolbar,
 } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
 import { useDispatch } from 'react-redux';
 import routes from '../../constants/routes.json';
@@ -107,6 +108,14 @@ export default function TopBar() {
                 <HomeIcon className={classes.icon} />
                 Inicio
               </Link>
+              <LinkReact
+                to={routes.STATS}
+                color="inherit"
+                className={`${classes.link} MuiLink-underlineHover`}
+              >
+                <EqualizerIcon className={classes.icon} />
+                Estadísticas
+              </LinkReact>
               <Link
                 href={routes.LOGIN}
                 color="inherit"
