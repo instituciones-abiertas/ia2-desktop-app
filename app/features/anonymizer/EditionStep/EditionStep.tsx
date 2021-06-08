@@ -15,7 +15,7 @@ import { IAnnotation } from '../../../utils/declarations';
 // eslint-disable-next-line no-unused-vars
 const areEqual = () => true;
 const MemoEditor = React.memo(Editor, areEqual);
-const multipleSelectionEnabe = process.env.MULTIPLE_SELECTION_ENABLE || false;
+const multipleSelectionEnabe = process.env.MULTIPLE_SELECTION_ENABLE === 'true';
 
 export default function EditionStep() {
   const state = useSelector(selectAnonymizer);
@@ -61,8 +61,6 @@ export default function EditionStep() {
       getAllOcurrencies(newAnnotations, state.id, deleteAnnotations, tagList)
     );
   };
-
-
 
   return (
     <MemoEditor
