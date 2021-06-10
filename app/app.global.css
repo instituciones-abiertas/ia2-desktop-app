@@ -84,6 +84,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: 'Saira-Regular', sans-serif;
 }
 .react-daterange-picker--disabled {
   background-color: #f0f0f0;
