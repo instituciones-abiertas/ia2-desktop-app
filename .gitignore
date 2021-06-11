@@ -51,3 +51,6 @@ npm-debug.log.*
 
 # Environment
 .env
+
+# Tests
+_uploads_
