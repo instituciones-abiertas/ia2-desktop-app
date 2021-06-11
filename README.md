@@ -137,6 +137,28 @@ _Utilizando `yarn`_
 yarn dev
 ```
 
+## Tests
+
+Los tests de integración utilizan una instancia activa del [servidor de IA²](https://github.com/instituciones-abiertas/ia2-server). Del mismo modo, las variables de ambiente para tests deben estar disponibles en la terminal donde se correrán los tests.
+
+Una vez configuradas las variables, exponer los valores de ambiente utilizando:
+
+```bash
+source .env
+```
+
+Luego es posible ejecutar las pruebas utilizando:
+
+```bash
+yarn run test-e2e
+```
+
+Con hot reload
+
+```bash
+yarn run test-e2e-live
+```
+
 ## Generación de builds y paquetes
 
 Para conocer detalles de configuración para realizar el build de la aplicación, se puede visitar la [documentación oficial](https://www.electron.build/configuration/configuration#Metadata-homepage) de electron-builder.
