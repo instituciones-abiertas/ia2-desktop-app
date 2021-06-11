@@ -19,11 +19,13 @@ const anonymizerSlice = createSlice({
     newAnnotations: [],
     deleteAnnotations: [],
     selectTag: null,
+    task_id: null,
     anonymizedText: '',
     subject: 'PENAL',
     isLoading: false,
     hasError: false,
     errorCode: null,
+    downloadButton: false,
     errorMessage:
       'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.',
     activeStep: 0,
@@ -64,6 +66,7 @@ const anonymizerSlice = createSlice({
       state.isLoading = false;
       state.hasError = false;
       state.resultData = action.payload.data_visualization;
+      state.task_id = action.payload.task_id;
     },
     updateDoc: (state, action) => {
       state.document = action.payload;
@@ -129,7 +132,11 @@ const anonymizerSlice = createSlice({
     clearAnonymizerError: (state) => {
       state.hasError = false;
     },
+    updateDownloadButton: (state) => {
+      state.downloadButton = true;
+    },
     updateReset: (state) => {
+      state.downloadButton = false;
       state.subject = 'PENAL';
       state.id = 0;
       state.text = '';
@@ -145,6 +152,7 @@ const anonymizerSlice = createSlice({
       state.errorMessage =
         'Ha ocurrido un error procesando el documento. Carga otro documento o intenta más tarde.';
       state.activeStep = 0;
+      state.task_id = null;
     },
     updateSelectTag: (state, action) => {
       state.selectTag = state.tags.find((tag) => tag.name === action.payload);
@@ -175,6 +183,7 @@ export const {
   removeDeleteAnnotations,
   removeNewAnnotations,
   updateSelectTag,
+  updateDownloadButton,
 } = anonymizerSlice.actions;
 
 export const getEntitiesFromDoc = (
