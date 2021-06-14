@@ -172,6 +172,7 @@ export default function ResultStep() {
               color="primary"
               size="small"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Dropbox
               <ShareIcon className={classes.iconButton} fontSize="small" />
@@ -184,6 +185,7 @@ export default function ResultStep() {
               color="primary"
               size="small"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Drive
               <ShareIcon className={classes.iconButton} fontSize="small" />
