@@ -1,5 +1,10 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  withStyles,
+} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepConnector from '@material-ui/core/StepConnector';
@@ -43,8 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.main,
       },
       '&:hover svg': {
-        color: theme.palette.primary.contrastText
-      }
+        color: theme.palette.primary.contrastText,
+      },
     },
     uploaderStepButton: {
       width: theme.spacing(20),
@@ -105,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
     stepIconActive: {
       fontSize: theme.spacing(6),
       color: theme.palette.secondary.main,
-      fill: theme.palette.primary.main
+      fill: theme.palette.primary.main,
     },
     stepIconCompleted: {
       fontSize: theme.spacing(6),
@@ -140,7 +145,7 @@ function getStepContent(stepIndex: number) {
   }
 }
 
-const QontoConnector = withStyles(({palette}) => ({
+const QontoConnector = withStyles(({ palette }) => ({
   alternativeLabel: {
     top: '25%',
     left: 'calc(-50% + 23px)',
@@ -288,7 +293,7 @@ export default function AnonymizationStepper() {
                   onClick={handleBack}
                   variant="contained"
                   className={classes.editionStepButton}
-                  style={{paddingRight: '14px'}}
+                  style={{ paddingRight: '14px' }}
                 >
                   <ArrowBackIosRoundedIcon
                     className={classes.iconButton}
@@ -313,11 +318,7 @@ export default function AnonymizationStepper() {
                       ? classes.uploaderStepButton
                       : classes.editionStepButton
                   }
-                  style={
-                    isUploaderStep()
-                      ? {}
-                      : {paddingLeft: '14px'}
-                  }
+                  style={isUploaderStep() ? {} : { paddingLeft: '14px' }}
                 >
                   {isUploaderStep() ? (
                     'PROCESAR'

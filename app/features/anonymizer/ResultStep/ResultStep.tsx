@@ -75,8 +75,7 @@ export default function ResultStep() {
         }
         return null;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         notifyError('No se pudo descargar el documento.');
       });
   };
