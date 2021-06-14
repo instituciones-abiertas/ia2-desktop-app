@@ -239,6 +239,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@hot-loader/react-dom": "^16.14.0",
+    "@ia2coop/ia2-annotation-tool": "^1.2.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -252,7 +253,6 @@
     "electron-updater": "^4.3.1",
     "flickity": "^2.2.2",
     "history": "^4.7.2",
-    "ia2-annotation-tool": "https://github.com/instituciones-abiertas/ia2-annotation-tool.git#main",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-hook-form": "^6.9.6",

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Api } from 'ia2-annotation-tool';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 import useClearProcessState from '../../hooks/clearProcessStateHook';
 import {
   errorLogin,

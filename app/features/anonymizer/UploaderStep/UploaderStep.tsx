@@ -4,7 +4,7 @@ import AttachFileRoundedIcon from '@material-ui/icons/AttachFileRounded';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import { Api } from 'ia2-annotation-tool';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 import {
   updateDoc,
   selectAnonymizer,
