@@ -1,4 +1,5 @@
 {
   "LOGIN": "/",
-  "ANONIMIZATION": "/anonimizacion"
+  "ANONIMIZATION": "/anonimizacion",
+  "STATS": "/stats"
 }

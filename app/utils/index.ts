@@ -14,4 +14,14 @@ function getDownloadFileName(filename: string): string {
   return result;
 }
 
-export { getFileExtension, getFileName, getDownloadFileName };
+const replaceKeys = (arr, obj) => {
+  const keys = Object.keys(obj);
+  const res = {};
+  for (let a = 0; a < arr.length; a += 1) {
+    res[arr[a]] = obj[keys[a]];
+    obj[arr[a]] = obj[keys[a]];
+    delete obj[keys[a]];
+  }
+};
+
+export { getFileExtension, getFileName, getDownloadFileName, replaceKeys };
