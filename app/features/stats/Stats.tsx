@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { BarSeries, PieSeries } from 'ia2-annotation-tool';
+import { BarSeries, PieSeries } from '@ia2coop/ia2-annotation-tool';
 import InfoIcon from '@material-ui/icons/Info';
 import { Grid, Card, useTheme } from '@material-ui/core';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';

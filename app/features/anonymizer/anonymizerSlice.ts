@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Api } from 'ia2-annotation-tool';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
 import { IAnnotation } from '../../utils/declarations';
@@ -186,92 +186,95 @@ export const {
   updateDownloadButton,
 } = anonymizerSlice.actions;
 
-export const getEntitiesFromDoc = (
-  doc: string,
-  docName: string
-): AppThunk => async (dispatch) => {
-  dispatch(updateLoader());
-  try {
-    const response = await api.getDocAnalysis(doc, docName);
-    const mappedResponse = {
-      ...response,
-      ents: response.ents.map((ent) => {
-        return {
-          ...ent,
-          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
-        };
-      }),
-    };
-    dispatch(updateAnalysisSuccess(mappedResponse));
-  } catch (err) {
-    dispatch(
-      updateErrorStatus({
-        status: true,
-        message: err.response.data.detail,
-        errorCode: err.response.status,
-      })
-    );
-  }
-};
+export const getEntitiesFromDoc =
+  (doc: string, docName: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(updateLoader());
+    try {
+      const response = await api.getDocAnalysis(doc, docName);
+      const mappedResponse = {
+        ...response,
+        ents: response.ents.map((ent) => {
+          return {
+            ...ent,
+            class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+          };
+        }),
+      };
+      dispatch(updateAnalysisSuccess(mappedResponse));
+    } catch (err) {
+      dispatch(
+        updateErrorStatus({
+          status: true,
+          message: err.response.data.detail,
+          errorCode: err.response.status,
+        })
+      );
+    }
+  };
 
-export const getAnonymization = (
-  newAnnotations: IAnnotation[],
-  docId: number,
-  deleteAnnotations: IAnnotation[]
-): AppThunk => async (dispatch) => {
-  dispatch(updateLoader());
-  try {
-    const response = await api.getAnonymizedDoc(
-      newAnnotations,
-      docId,
-      deleteAnnotations
-    );
-    dispatch(updateAnonymizedDocSuccess(response));
-  } catch (err) {
-    dispatch(
-      updateErrorStatus({
-        status: true,
-        message: err.response.data.detail,
-        errorCode: err.response.status,
-      })
-    );
-  }
-};
+export const getAnonymization =
+  (
+    newAnnotations: IAnnotation[],
+    docId: number,
+    deleteAnnotations: IAnnotation[]
+  ): AppThunk =>
+  async (dispatch) => {
+    dispatch(updateLoader());
+    try {
+      const response = await api.getAnonymizedDoc(
+        newAnnotations,
+        docId,
+        deleteAnnotations
+      );
+      dispatch(updateAnonymizedDocSuccess(response));
+    } catch (err) {
+      dispatch(
+        updateErrorStatus({
+          status: true,
+          message: err.response.data.detail,
+          errorCode: err.response.status,
+        })
+      );
+    }
+  };
 
-export const getAllOcurrencies = (
-  newAnnotations: IAnnotation[],
-  docId: number,
-  deleteAnnotations: IAnnotation[],
-  entityList: number[]
-): AppThunk => async (dispatch) => {
-  dispatch(updateLoader());
-  try {
-    const response = await api.getAllOcurrenciesOf(
-      newAnnotations,
-      docId,
-      deleteAnnotations,
-      entityList
-    );
-    const mappedResponse = {
-      ...response,
-      ents: response.ents.map((ent) => {
-        return {
-          ...ent,
-          class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
-        };
-      }),
-    };
-    dispatch(updateAnalysisSuccess(mappedResponse));
-  } catch (err) {
-    dispatch(
-      updateErrorStatus({
-        status: true,
-        message: err.response.data.detail,
-        errorCode: err.response.status,
-      })
-    );
-  }
-};
+export const getAllOcurrencies =
+  (
+    newAnnotations: IAnnotation[],
+    docId: number,
+    deleteAnnotations: IAnnotation[],
+    entityList: number[]
+  ): AppThunk =>
+  async (dispatch) => {
+    dispatch(updateLoader());
+    try {
+      const response = await api.getAllOcurrenciesOf(
+        newAnnotations,
+        docId,
+        deleteAnnotations,
+        entityList
+      );
+      const mappedResponse = {
+        ...response,
+        ents: response.ents.map((ent) => {
+          return {
+            ...ent,
+            class: ent.should_anonymized ? styles.anonymousmark : styles.mark,
+          };
+        }),
+      };
+      dispatch(updateAnalysisSuccess(mappedResponse));
+    } catch (err) {
+      dispatch(
+        updateErrorStatus({
+          status: true,
+          message: err.response.data.detail,
+          errorCode: err.response.status,
+        })
+      );
+    }
+  };
 
 export default anonymizerSlice.reducer;
 

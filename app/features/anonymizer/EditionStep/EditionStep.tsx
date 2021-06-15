@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor } from 'ia2-annotation-tool';
+import { Editor } from '@ia2coop/ia2-annotation-tool';
 import { useSelector, useDispatch } from 'react-redux';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
 import Loader from '../../../components/Loader/Loader';

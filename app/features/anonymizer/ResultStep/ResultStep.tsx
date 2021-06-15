@@ -12,7 +12,7 @@ import { useHistory } from 'react-router';
 import ShareIcon from '@material-ui/icons/Share';
 import DownloadIcon from '@material-ui/icons/GetAppSharp';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { Api } from 'ia2-annotation-tool';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 import {
   selectAnonymizer,
   updateReset,
@@ -75,8 +75,7 @@ export default function ResultStep() {
         }
         return null;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         notifyError('No se pudo descargar el documento.');
       });
   };

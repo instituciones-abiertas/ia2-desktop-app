@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Api } from 'ia2-annotation-tool';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
 import { API } from '../../constants/api';
