@@ -40,7 +40,7 @@ export default function PopUpReset(props: PopUpResetProps) {
           <Button onClick={handleAcept} color="primary">
             Aceptar
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="secondary">
             Cancelar
           </Button>
         </DialogActions>
