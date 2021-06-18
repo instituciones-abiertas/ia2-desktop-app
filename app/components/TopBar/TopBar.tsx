@@ -13,11 +13,14 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../constants/routes.json';
 import PopUpReset from '../ErrorVisualizer/PopUpReset';
 import logoImage from '../../assets/img/logo_verde.png';
-import { updateReset } from '../../features/anonymizer/anonymizerSlice';
+import {
+  updateReset,
+  selectAnonymizer,
+} from '../../features/anonymizer/anonymizerSlice';
 import { useLogOut } from '../../features/login/authHook';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,29 +52,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function TopBar() {
-  const [open, setOpen] = React.useState(false);
   const [openLogOut, setOpenLogOut] = React.useState(false);
+  const [openInit, setOpenInit] = React.useState(false);
+  const [messageInit, setMessageInit] = React.useState('');
+  const [openStats, setOpenStats] = React.useState(false);
+  const [messageStats, setMessageStats] = React.useState('');
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
+  const state = useSelector(selectAnonymizer);
   const [logOut] = useLogOut();
-
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleAcept = () => {
-    handleClose();
-    dispatch(updateReset());
-    history.push(routes.ANONIMIZATION);
-  };
 
   const handleLogOut = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -85,9 +75,75 @@ export default function TopBar() {
   };
 
   const handleAceptLogOut = () => {
-    handleClose();
+    handleCloseLogOut();
     history.push(routes.LOGIN);
     logOut();
+  };
+
+  const handleCloseInit = () => {
+    setOpenInit(false);
+  };
+
+  const handleAceptInit = () => {
+    setOpenInit(false);
+    dispatch(updateReset());
+    history.push(routes.ANONIMIZATION);
+  };
+
+  const handleCloseStats = () => {
+    setOpenStats(false);
+  };
+
+  const handleAceptStats = () => {
+    setOpenStats(false);
+    dispatch(updateReset());
+    history.push(routes.STATS);
+  };
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    switch (state.activeStep) {
+      case 1:
+        setMessageInit(
+          'Al hacerlo, el documento anonimizado junto a los cambios realizados en el documento se perderán.'
+        );
+        return setOpenInit(true);
+      case 2:
+        setMessageInit(
+          'Si no descargó el documento anonimizado, se perderá así como los cambios realizados al mismo.'
+        );
+        return setOpenInit(true);
+      default:
+        handleCloseInit();
+        dispatch(updateReset());
+        history.push(routes.ANONIMIZATION);
+        return false;
+    }
+  };
+
+  const handleClickStats = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    switch (state.activeStep) {
+      case 1:
+        setMessageStats(
+          'Al hacerlo, el documento anonimizado junto a los cambios realizados en el documento se perderán.'
+        );
+        return setOpenStats(true);
+      case 2:
+        setMessageStats(
+          'Si no descargó el documento anonimizado, se perderá así como los cambios realizados al mismo.'
+        );
+        return setOpenStats(true);
+      default:
+        handleCloseStats();
+        dispatch(updateReset());
+        history.push(routes.STATS);
+        return false;
+    }
   };
 
   return (
@@ -112,6 +168,7 @@ export default function TopBar() {
                 to={routes.STATS}
                 color="inherit"
                 className={`${classes.link} MuiLink-underlineHover`}
+                onClick={handleClickStats}
               >
                 <EqualizerIcon className={classes.icon} />
                 Estadísticas
@@ -131,15 +188,21 @@ export default function TopBar() {
       </AppBar>
       <PopUpReset
         open={openLogOut}
+        message="Al hacerlo, cerrará su sesión de usuarix y perderá el estado del proceso actual."
         handleClose={handleCloseLogOut}
         handleAcept={handleAceptLogOut}
-        message="Al hacerlo, cerrará su sesión de usuarix y perderá el estado del proceso actual."
       />
       <PopUpReset
-        open={open}
-        message="Al hacerlo, el documento anonimizado junto a los cambios realizados en el documento de perderán."
-        handleClose={handleClose}
-        handleAcept={handleAcept}
+        open={openInit}
+        message={messageInit}
+        handleClose={handleCloseInit}
+        handleAcept={handleAceptInit}
+      />
+      <PopUpReset
+        open={openStats}
+        message={messageStats}
+        handleClose={handleCloseStats}
+        handleAcept={handleAceptStats}
       />
     </>
   );
