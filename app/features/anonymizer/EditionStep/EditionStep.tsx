@@ -3,6 +3,7 @@ import { Editor } from '@ia2coop/ia2-annotation-tool';
 import { useSelector, useDispatch } from 'react-redux';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
 import Loader from '../../../components/Loader/Loader';
+import Toast from '../../../components/Toast/Toast';
 import {
   selectAnonymizer,
   updateDeleteAnnotations,
@@ -63,14 +64,17 @@ export default function EditionStep() {
   };
 
   return (
-    <MemoEditor
-      style={style}
-      text={state.text}
-      tags={state.tags}
-      annotations={state.annotations}
-      onAnnotationsChange={onAnnotationsChange}
-      multipleSelectionEnable={multipleSelectionEnabe}
-      onMultipleSelection={onMultipleSelection}
-    />
+    <>
+      {!state.new_act && <Toast message="Se cargo un documento existente" />}
+      <MemoEditor
+        style={style}
+        text={state.text}
+        tags={state.tags}
+        annotations={state.annotations}
+        onAnnotationsChange={onAnnotationsChange}
+        multipleSelectionEnable={multipleSelectionEnabe}
+        onMultipleSelection={onMultipleSelection}
+      />
+    </>
   );
 }
