@@ -14,6 +14,7 @@ const anonymizerSlice = createSlice({
     id: 0,
     text: '',
     document: '',
+    new_act: true,
     documentName: '',
     annotations: [],
     newAnnotations: [],
@@ -58,6 +59,7 @@ const anonymizerSlice = createSlice({
       state.text = action.payload.text;
       state.annotations = action.payload.ents;
       state.id = action.payload.id;
+      state.new_act = action.payload.new_act;
       state.isLoading = false;
       state.hasError = false;
     },
