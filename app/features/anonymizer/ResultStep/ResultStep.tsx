@@ -145,6 +145,9 @@ export default function ResultStep() {
     if (state.task_id != null) {
       intervalId = setInterval(checkStatusCode, 5000);
     }
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [state.task_id]);
 
   const renderActionButtons = () => {
