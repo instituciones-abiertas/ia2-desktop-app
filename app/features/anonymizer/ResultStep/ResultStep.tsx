@@ -17,6 +17,7 @@ import {
   selectAnonymizer,
   updateReset,
   updateDownloadButton,
+  updateErrorStatus,
 } from '../anonymizerSlice';
 import Loader from '../../../components/Loader/Loader';
 import useNotification from '../../notifications/Notification';
@@ -69,14 +70,33 @@ export default function ResultStep() {
     api
       .checkStatusDownloadDocument(state.id, state.task_id)
       .then((data) => {
-        if (data.data.status) {
+        if (data.data.status === 'SUCCESS') {
           dispatch(updateDownloadButton());
           clearInterval(intervalId);
+        } else if (data.data.status === 'FAILURE') {
+          dispatch(
+            updateErrorStatus({
+              status: true,
+              message:
+                'Esta tarea asincronica tuvo un error,vuelva a intentarlo',
+              errorCode: 503,
+            })
+          );
         }
         return null;
       })
-      .catch(() => {
-        notifyError('No se pudo descargar el documento.');
+      .catch((err) => {
+        dispatch(
+          updateErrorStatus({
+            status: true,
+            message:
+              err.response && err.response.data && err.response.data.detail
+                ? err.response.data.detail
+                : 'Error en servidor de tareas asincronicas',
+            errorCode:
+              err.response && err.response.status ? err.response.status : 503,
+          })
+        );
       });
   };
 
@@ -145,6 +165,9 @@ export default function ResultStep() {
     if (state.task_id != null) {
       intervalId = setInterval(checkStatusCode, 5000);
     }
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [state.task_id]);
 
   const renderActionButtons = () => {
