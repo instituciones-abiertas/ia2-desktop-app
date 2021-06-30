@@ -78,7 +78,7 @@ export default function ResultStep() {
             updateErrorStatus({
               status: true,
               message:
-                'Esta tarea asincronica tuvo un error,vuelva a intentarlo',
+                'Esta tarea asincrónica tuvo un error, vuelva a intentarlo',
               errorCode: 503,
             })
           );
@@ -92,7 +92,7 @@ export default function ResultStep() {
             message:
               err.response && err.response.data && err.response.data.detail
                 ? err.response.data.detail
-                : 'Error en servidor de tareas asincronicas',
+                : 'Error en servidor de tareas asincrónicas',
             errorCode:
               err.response && err.response.status ? err.response.status : 503,
           })
