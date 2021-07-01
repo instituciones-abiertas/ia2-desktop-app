@@ -1,7 +1,7 @@
 {
   "name": "ia2-inteligencia-artificial-x-instituciones-abiertas",
   "productName": "IA², Inteligencia Artificial x Instituciones Abiertas",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Herramienta para la anonimización de documentos.",
   "main": "./main.prod.js",
   "author": {
@@ -14,6 +14,5 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "GPL-3.0",
-  "dependencies": {
-  }
+  "dependencies": {}
 }

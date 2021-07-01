@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -12,18 +12,23 @@ import { useHistory } from 'react-router';
 import ShareIcon from '@material-ui/icons/Share';
 import DownloadIcon from '@material-ui/icons/GetAppSharp';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { selectAnonymizer, updateReset } from '../anonymizerSlice';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 import {
-  getDocToDownload,
-  getDocPublished,
-  getDocPublishedToDrive,
-} from '../../../api/anonymizationApi';
+  selectAnonymizer,
+  updateReset,
+  updateDownloadButton,
+  updateErrorStatus,
+} from '../anonymizerSlice';
 import Loader from '../../../components/Loader/Loader';
 import useNotification from '../../notifications/Notification';
 import ErrorVisualizer from '../../../components/ErrorVisualizer/ErrorVisualizer';
 import Results from '../../../components/Result/Results';
 import routes from '../../../constants/routes.json';
 import PopUpReset from '../../../components/ErrorVisualizer/PopUpReset';
+import { getDownloadFileName } from '../../../utils';
+import { API } from '../../../constants/api';
+
+const api = Api(API);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,40 +63,87 @@ export default function ResultStep() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
-
+  let intervalId = '';
   const dispatch = useDispatch();
 
+  const checkStatusCode = () => {
+    api
+      .checkStatusDownloadDocument(state.id, state.task_id)
+      .then((data) => {
+        if (data.data.status === 'SUCCESS') {
+          dispatch(updateDownloadButton());
+          clearInterval(intervalId);
+        } else if (data.data.status === 'FAILURE') {
+          dispatch(
+            updateErrorStatus({
+              status: true,
+              message:
+                'Esta tarea asincrónica tuvo un error, vuelva a intentarlo',
+              errorCode: 503,
+            })
+          );
+          clearInterval(intervalId);
+        }
+        return null;
+      })
+      .catch((err) => {
+        dispatch(
+          updateErrorStatus({
+            status: true,
+            message:
+              err.response && err.response.data && err.response.data.detail
+                ? err.response.data.detail
+                : 'Error en servidor de tareas asincrónicas',
+            errorCode:
+              err.response && err.response.status ? err.response.status : 503,
+          })
+        );
+        clearInterval(intervalId);
+      });
+  };
+
   const handleDownloadClick = () => {
-    try {
-      getDocToDownload(state.id, state.documentName);
-    } catch (error) {
-      notifyError('No se pudo descargar el documento.');
-      throw error;
-    }
+    const downloadFilename = getDownloadFileName(state.documentName);
+
+    api
+      .getDocToDownload(state.id, downloadFilename, state.task_id)
+      .then(() => {
+        notifySuccess('Documento Listo');
+        return null;
+      })
+      .catch((error) => {
+        if (error.request.status === 409) {
+          notifyError('Aun no esta disponible el documento');
+        } else {
+          notifyError('No se pudo descargar el documento.');
+        }
+      });
   };
 
   const handleDropboxPublishButtonClick = () => {
-    getDocPublished(state.id)
+    api
+      .getDocPublished(state.id)
       .then(() => {
         notifySuccess(
           'Se ha publicado el documento anonimizado en su cuenta de Dropbox.'
         );
         return null;
       })
-      .catch((error) => {
+      .catch(() => {
         notifyError('No se pudo publicar el documento.');
       });
   };
 
   const handleDrivePublishButtonClick = () => {
-    getDocPublishedToDrive(state.id)
+    api
+      .getDocPublishedToDrive(state.id)
       .then(() => {
         notifySuccess(
           'Se ha publicado el documento anonimizado en su cuenta de Google Drive.'
         );
         return null;
       })
-      .catch((error) => {
+      .catch(() => {
         notifyError('No se pudo publicar el documento.');
       });
   };
@@ -109,6 +161,16 @@ export default function ResultStep() {
     dispatch(updateReset());
     history.push(routes.ANONIMIZATION);
   };
+  // Use trigger a checkStatusCode in this step, check exist task_id before send a request
+
+  useEffect(() => {
+    if (state.task_id != null) {
+      intervalId = setInterval(checkStatusCode, 5000);
+    }
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [state.task_id]);
 
   const renderActionButtons = () => {
     return (
@@ -121,6 +183,7 @@ export default function ResultStep() {
               size="small"
               color="primary"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Descargar
               <DownloadIcon className={classes.iconButton} fontSize="small" />
@@ -133,6 +196,7 @@ export default function ResultStep() {
               color="primary"
               size="small"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Dropbox
               <ShareIcon className={classes.iconButton} fontSize="small" />
@@ -145,6 +209,7 @@ export default function ResultStep() {
               color="primary"
               size="small"
               className={classes.actionButton}
+              disabled={!state.downloadButton}
             >
               Drive
               <ShareIcon className={classes.iconButton} fontSize="small" />
@@ -171,6 +236,7 @@ export default function ResultStep() {
       </>
     );
   };
+
   const renderResultStep = () => {
     return (
       <div className={classes.results}>

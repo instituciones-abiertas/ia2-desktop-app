@@ -2,7 +2,7 @@
 
 ¡Hola! Estamos muy emocionadxs de que estes interesadx en contribuir a IA²-Desktop-App. Antes de enviar Pull Requests, asegurate de tomarte un momento y leer las siguientes pautas:
 
-- [Código de conducta](https://github.com/facttic/ia2-desktop-app/blob/master/.github/CODE_OF_CONDUCT.md)
+- [Código de conducta](https://github.com/instituciones-abiertas/ia2-desktop-app/blob/main/.github/CODE_OF_CONDUCT.md)
 - [Pautas para la apertura de issues](#pautas-para-la-apertura-de-issues)
 - [Pautas para la apertura de Pull Requests](#pautas-para-la-apertura-de-pull-requests)
 - [Configuración de desarrollo](#configuración-de-desarrollo)

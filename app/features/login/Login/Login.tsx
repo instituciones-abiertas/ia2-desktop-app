@@ -123,7 +123,7 @@ export default function LogIn() {
         <Grow in>
           <img className={classes.logo} alt="logo" src={logoImage} />
         </Grow>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form id="submit-form" className={classes.form}>
           <Typography
             component="h6"
             variant="h6"
@@ -186,6 +186,7 @@ export default function LogIn() {
             variant="contained"
             color="primary"
             className={classes.submitButton}
+            onClick={handleSubmit}
           >
             Iniciar sesión
           </Button>

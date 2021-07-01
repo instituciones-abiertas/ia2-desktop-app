@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     instructionsIcon: {
       padding: theme.spacing(3),
       display: 'flex',
-      alignSelf: 'start'
+      alignSelf: 'start',
     },
     levelContainer: {
       flexGrow: 1,
@@ -94,6 +94,7 @@ export default function Header(props: InstructionsProps) {
     }
   };
 
+  const levelPercent = `${level} %`;
   return (
     <div className={classes.instructionsContainer}>
       <Paper
@@ -113,7 +114,7 @@ export default function Header(props: InstructionsProps) {
         </div>
         <div className={classes.levelContainer}>
           <Typography className={classes.levelText} component="h1" variant="h5">
-            {level} %
+            {levelPercent}
           </Typography>
         </div>
       </Paper>

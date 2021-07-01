@@ -2,11 +2,11 @@
 
 > Incluya un resumen del cambio y una referencia al issue que se solucionó. Incluya también la motivación y el contexto que considere relevantes. Enumere cualquier dependencia necesaria para este cambio.
 
-<!-- Plantilla de ejemplo, abarcando conceptos generales de la contribución:
+<!-- Plantilla de ejemplo:
 
 **Este PR provee:**
--   Implementación de tests de integración para...
--   Rediseño de controles de etiquetado en...
+-   Implementación de tests unitarios para...
+-   Implementación de pipeline custom para la detección de...
 -   ...
 -->
 
@@ -41,13 +41,13 @@ Closes: #420
 
 **Instrucciones:**
 
-<!-- Proporcione instrucciones, a continuación un ejemplo:
+<!-- Proporcione instrucciones, a continuación un ejemplo
 
-**1.** Setear los siguientes parámetros en `.env`: ...
-**2.** Levantar la aplicación en modo development.
-**3.** Acceder a la aplicación con credentiales de prueba: `<credenciales>`
+**1.** Setear los siguientes parámetros en `train_config.json`: ...
+**2.** Ejecutar el comando `command param1 param2 param3`
+**3.** Verificar que los archivos existan en...
 
-**Resultado esperado:** verificar que el layout de inicio refleja las....
+**Expected result:** la operación se muestra completada en el log `debug.log`.
 
 -->
 
@@ -55,14 +55,11 @@ Closes: #420
 
 > Las siguientes opciones en **negrita** son necesarias para la aprobación del PR. Marque las casillas solo si es necesario, nos ayuda a minimizar el proceso de revisión.
 
-<!-- Marcar a continuación las que corresponden con sus cambios.
-  Ejemplo:
-  [x] <Opción que corresponde>
-  [ ] <Opción que no corresponde>
--->
+<!-- Editar a continuación -->
 
 - [ ] **He realizado una autoevaluación de mi propio código.**
 - [ ] He comentado mi código, especialmente en áreas difíciles de entender.
 - [ ] He realizado los cambios correspondientes a mis cambios en la documentación.
 - [ ] **Mis cambios no generan nuevas advertencias.**
 - [ ] He añadido pruebas que prueban que mi bugfix es eficaz o que mi feature funciona.
+- [ ] **Las pruebas nuevas y existentes pasan exitosamente con mis cambios.**

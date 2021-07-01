@@ -4,6 +4,7 @@ import AttachFileRoundedIcon from '@material-ui/icons/AttachFileRounded';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
+import { Api } from '@ia2coop/ia2-annotation-tool';
 import {
   updateDoc,
   selectAnonymizer,
@@ -12,8 +13,9 @@ import {
   updateTags,
   updateSelectTag,
 } from '../anonymizerSlice';
-import { getEntities } from '../../../api/anonymizationApi';
-import { INITIAL_ENTITY } from '../../../constants/stepper';
+import { API } from '../../../constants/api';
+
+const api = Api(API);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,7 +99,7 @@ export default function UploaderStep() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getEntities();
+      const result = await api.getEntities();
       dispatch(updateTags(result));
       // Setea como entidad default la primera entidad que provee el backend.Deberia dar error si no hay entidades desde el back.
       dispatch(updateSelectTag(result[0].name));
