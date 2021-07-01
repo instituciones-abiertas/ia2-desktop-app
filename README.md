@@ -144,7 +144,7 @@ Los tests de integración utilizan una instancia activa del [servidor de IA²](h
 Una vez configuradas las variables, exponer los valores de ambiente utilizando:
 
 ```bash
-source .env
+export $(cat .env | xargs)
 ```
 
 Luego es posible ejecutar las pruebas utilizando:
