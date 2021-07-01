@@ -82,6 +82,7 @@ export default function ResultStep() {
               errorCode: 503,
             })
           );
+          clearInterval(intervalId);
         }
         return null;
       })
@@ -97,6 +98,7 @@ export default function ResultStep() {
               err.response && err.response.status ? err.response.status : 503,
           })
         );
+        clearInterval(intervalId);
       });
   };
 
