@@ -88,7 +88,7 @@ cp .env.example .env
 **Ejemplo para un servidor local:**
 
 ```bash
-BASE_URL=localhost:8000
+BASE_URL=http://localhost:8000
 API_URL=/api
 ```
 
