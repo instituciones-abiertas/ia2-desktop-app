@@ -1200,10 +1200,10 @@
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-"@ia2coop/ia2-annotation-tool@^1.2.1":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@ia2coop/ia2-annotation-tool/-/ia2-annotation-tool-1.2.5.tgz#927df7b1b1aae9a898e3b54c71ff9425a8b7eb6b"
-  integrity sha512-XVouPQnvXtyNHYS30vzx1BhRlCct0Nguqx9CeTwlERRuDlXu0rEWsb9Prq9zw011QvyvQDBOPIzfA3aKB4bE+A==
+"@ia2coop/ia2-annotation-tool@^1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@ia2coop/ia2-annotation-tool/-/ia2-annotation-tool-1.2.6.tgz#b1f1b9155fb8fa142fb1fbd2da078713b4931fa4"
+  integrity sha512-dK+81yteIQd6mTfEpnGso4QUu3+yBQcThraes4elNpeXwUCrlyIGQbft9xexeyUDaEZsWYTzIFg5TxCuogcQNg==
   dependencies:
     "@ia2coop/ia2-react-text-annotate" "^1.2.2"
     "@material-ui/core" "^4.11.0"
